@@ -29,7 +29,7 @@ npm install angular-popups
 | for         | 有此值则吸附到指定 ID 的元素附近，否则居中对齐                |
 | align       | 对齐的参数，此参数需要与 `for` 配合使用。可选值：`"top left"` `"top"` `"top right"` `"right top"` `"right"` `"right bottom"` `"bottom right"` `"bottom"` `"bottom left"` `"left bottom"` `"left"` `"left top"` |
 | fixed       | 使用固定定位                                   |
-| modal       | 模特浮层                                     |
+| modal       | 模态浮层                                     |
 | duration    | 自动关闭的时间（单位毫秒）                            |
 | close       | 浮层关闭事件                                   |
 | drag        | 拖拽                                       |
