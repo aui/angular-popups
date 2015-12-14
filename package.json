@@ -8,7 +8,8 @@
     "angular",
     "dialog",
     "popup",
-    "bubble"
+    "bubble",
+    "artDialog"
   ],
   "author": "aui",
   "repository": {
