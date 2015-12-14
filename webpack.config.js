@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var version = require('./package.json').version;
 
 module.exports = {
     entry: {
@@ -11,7 +12,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('[name].css'),
-        new webpack.BannerPlugin('https://github.com/aui/angular-popups')
+        new webpack.BannerPlugin('popups@' + version + ' | https://github.com/aui/angular-popups')
     ],
     externals: {
         jquery: 'jQuery',
