@@ -1,7 +1,5 @@
 # angular-popups
 
-[TOC]
-
 基于 AngularJS 的浮层组件，由 [artDialog](https://github.com/aui/artDialog) 演进而来。
 
 1. 使用 AngularJS 自带的 `ng-if`、`ng-show`、`ng-hide` 控制浮层的显示与隐藏
