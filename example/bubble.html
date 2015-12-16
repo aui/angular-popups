@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="examples">
+<head>
+    <meta charset="UTF-8">
+    <title>example</title>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../dist/angular-popups.js"></script>
+
+    <script>
+    angular.module('examples', ['angular-popups']);
+    </script>
+
+    <link rel="stylesheet" href="./css/show-source-code.css">
+</head>
+<body>
+<button id="btn" ng-click="bubble.open = true">打开气泡</button>
+<bubble ng-if="bubble.open" for="btn" close="bubble.open=false">hello world</bubble>
+
+<script id="show-source-code" src="./js/show-source-code.js"></script>
+</body>
+</html>

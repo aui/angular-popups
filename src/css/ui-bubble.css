@@ -1,7 +1,7 @@
 @import url('./ui-popup.css');
 .ui-bubble {
     position: relative;
-    background-color: #FDF8DF;
+    background: rgba(253, 248, 222, .9);
     border: 1px solid rgba(206, 157, 72, .7);
     border-radius: 3px;
     outline: 0;
@@ -11,7 +11,7 @@
     color: #CD9C4F;
 }
 .ui-popup-focus .ui-bubble {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .ui-bubble-content {
@@ -21,22 +21,22 @@
 .ui-popup-top-left .ui-bubble,
 .ui-popup-top .ui-bubble,
 .ui-popup-top-right .ui-bubble {
-    top: -8px;
+    top: -5px;
 }
 .ui-popup-bottom-left .ui-bubble,
 .ui-popup-bottom .ui-bubble,
 .ui-popup-bottom-right .ui-bubble {
-    top: 8px;
+    top: 5px;
 }
 .ui-popup-left-top .ui-bubble,
 .ui-popup-left .ui-bubble,
 .ui-popup-left-bottom .ui-bubble {
-    left: -8px;
+    left: -5px;
 }
 .ui-popup-right-top .ui-bubble,
 .ui-popup-right .ui-bubble,
 .ui-popup-right-bottom .ui-bubble {
-    left: 8px;
+    left: 5px;
 }
 .ui-bubble::before,
 .ui-bubble::after {
@@ -46,7 +46,7 @@
     width: 0;
     height: 0;
     overflow:hidden;
-    border:8px dashed transparent;
+    border:5px dashed transparent;
 }
 .ui-popup-anchor .ui-bubble::before,
 .ui-popup-anchor .ui-bubble::after{
@@ -55,100 +55,100 @@
 .ui-popup-top-left .ui-bubble::before,
 .ui-popup-top .ui-bubble::before,
 .ui-popup-top-right .ui-bubble::before {
-    bottom: -16px;
-    border-top:8px solid #CD9C4F;
+    bottom: -10px;
+    border-top:5px solid #CD9C4F;
 }
 .ui-popup-top-left .ui-bubble::after,
 .ui-popup-top .ui-bubble::after,
 .ui-popup-top-right .ui-bubble::after {
-    bottom: -15px;
-    border-top:8px solid #FDF8DF;
+    bottom: -9px;
+    border-top:5px solid #FDF8DF;
 }
 .ui-popup-top-left .ui-bubble::before,
 .ui-popup-top-left .ui-bubble::after  {
-    left: 15px;
+    left: 9px;
 }
 .ui-popup-top .ui-bubble::before,
 .ui-popup-top .ui-bubble::after  {
     left: 50%;
-    margin-left: -8px;
+    margin-left: -5px;
 }
 .ui-popup-top-right .ui-bubble::before,
 .ui-popup-top-right .ui-bubble::after {
-    right: 15px;
+    right: 9px;
 }
 .ui-popup-bottom-left .ui-bubble::before,
 .ui-popup-bottom .ui-bubble::before,
 .ui-popup-bottom-right .ui-bubble::before {
-    top: -16px;
-    border-bottom:8px solid #CD9C4F;
+    top: -10px;
+    border-bottom:5px solid #CD9C4F;
 }
 .ui-popup-bottom-left .ui-bubble::after,
 .ui-popup-bottom .ui-bubble::after,
 .ui-popup-bottom-right .ui-bubble::after {
-    top: -15px;
-    border-bottom:8px solid #FDF8DF;
+    top: -9px;
+    border-bottom:5px solid #FDF8DF;
 }
 .ui-popup-bottom-left .ui-bubble::before,
 .ui-popup-bottom-left .ui-bubble::after {
-    left: 15px;
+    left: 9px;
 }
 .ui-popup-bottom .ui-bubble::before,
 .ui-popup-bottom .ui-bubble::after {
-    margin-left: -8px;
+    margin-left: -5px;
     left: 50%;
 }
 .ui-popup-bottom-right .ui-bubble::before,
 .ui-popup-bottom-right .ui-bubble::after {
-    right: 15px;
+    right: 9px;
 }
 .ui-popup-left-top .ui-bubble::before,
 .ui-popup-left .ui-bubble::before,
 .ui-popup-left-bottom .ui-bubble::before {
-    right: -16px;
-    border-left:8px solid #CD9C4F;
+    right: -10px;
+    border-left:5px solid #CD9C4F;
 }
 .ui-popup-left-top .ui-bubble::after,
 .ui-popup-left .ui-bubble::after,
 .ui-popup-left-bottom .ui-bubble::after {
-    right: -15px;
-    border-left:8px solid #FDF8DF;
+    right: -9px;
+    border-left:5px solid #FDF8DF;
 }
 .ui-popup-left-top .ui-bubble::before,
 .ui-popup-left-top .ui-bubble::after {
-    top: 15px;
+    top: 9px;
 }
 .ui-popup-left .ui-bubble::before,
 .ui-popup-left .ui-bubble::after {
-    margin-top: -8px;
+    margin-top: -5px;
     top: 50%;
 }
 .ui-popup-left-bottom .ui-bubble::before,
 .ui-popup-left-bottom .ui-bubble::after {
-    bottom: 15px;
+    bottom: 9px;
 }
 .ui-popup-right-top .ui-bubble::before,
 .ui-popup-right .ui-bubble::before,
 .ui-popup-right-bottom .ui-bubble::before {
-    left: -16px;
-    border-right:8px solid #CD9C4F;
+    left: -10px;
+    border-right:5px solid #CD9C4F;
 }
 .ui-popup-right-top .ui-bubble::after,
 .ui-popup-right .ui-bubble::after,
 .ui-popup-right-bottom .ui-bubble::after {
-    left: -15px;
-    border-right:8px solid #FDF8DF;
+    left: -9px;
+    border-right:5px solid #FDF8DF;
 }
 .ui-popup-right-top .ui-bubble::before,
 .ui-popup-right-top .ui-bubble::after {
-    top: 15px;
+    top: 9px;
 }
 .ui-popup-right .ui-bubble::before,
 .ui-popup-right .ui-bubble::after {
-    margin-top: -8px;
+    margin-top: -5px;
     top: 50%;
 }
 .ui-popup-right-bottom .ui-bubble::before,
 .ui-popup-right-bottom .ui-bubble::after {
-    bottom: 15px;
+    bottom: 9px;
 }
