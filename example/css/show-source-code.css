@@ -1,0 +1,16 @@
+    script[type='text/template'] {
+        display: block;
+        font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 14px;
+        white-space: pre-wrap;
+        padding: 16px;
+        overflow: auto;
+        line-height: 1.45;
+        background-color: #f7f7f7;
+        border-radius: 3px;
+        opacity: .5;
+        transition: opacity .15s ease-in-out;
+    }
+    /*script[type='text/template']:hover {
+        opacity: 1;
+    }*/

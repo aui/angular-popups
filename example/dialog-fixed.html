@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="examples">
+<head>
+    <meta charset="UTF-8">
+    <title>example</title>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../dist/angular-popups.js"></script>
+
+    <script>
+    angular.module('examples', ['angular-popups']);
+    </script>
+
+    <link rel="stylesheet" href="./css/show-source-code.css">
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            height: 400%;
+        }
+    </style>
+</head>
+<body>
+<button ng-click="dialog={open: true}">打开对话框</button>
+<dialog ng-if="dialog.open" fixed close="dialog.open=false">
+    <div dialog-title>消息</div>
+    <div dialog-content>下拉页面滚动条查看效果</div>
+</dialog>
+
+<script id="show-source-code" src="./js/show-source-code.js"></script>
+</body>
+</html>
