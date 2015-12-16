@@ -306,10 +306,10 @@ $.extend(Popup.prototype, {
     blur: function() {
 
         var activeElement = this.__activeElement;
+        var now = this.__getActive();
         var isBlur = arguments[0];
 
-
-        if (isBlur !== false && $.contains(this.node, this.__getActive())) {
+        if (isBlur !== false && (this.node === now || $.contains(this.node, now))) {
             this.__focus(activeElement);
         }
 
@@ -590,3 +590,5 @@ module.exports = Popup;
 // 删除遮罩层
 // 支持传入 elem
 // 修复 resize 可能被重复监听的 BUG
+// TODO showModal focus 优化
+// TODO zIndex 优化
