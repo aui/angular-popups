@@ -13,11 +13,40 @@
 * `bubble` 气泡指令
 * `popup` 透明浮层指令
 
-## 安装
+## 使用
+
+支持使用 script 标签或者 webpack 调用：
+
+### script
+
+下载：[angular-popups](#download)
+
+调用
+
+```html
+<script src="js/jquery.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/angular-popups.js"></script>
+<script>
+    var app = angular.module('app', ['angular-popups']);
+</script>
+```
+
+### webpack
+
+安装
 
 ``` shell
 npm install angular-popups
 ```
+
+调用
+```js
+require('angular-popups');
+var app = angular.module('app', ['angular-popups']);
+```
+
+> angular-popups 依赖 `jquery` 和 `angular` 这两个全局模块
 
 ## 通用参数
 
@@ -48,71 +77,20 @@ npm install angular-popups
 | dialog-buttons   | 对话框按钮容器  |
 | dialog-statusbar | 对话框状态栏容器 |
 
+> 对话框子指令中的事件可以使用 `$close()` 这个函数，它会调用通用参数 `close` 中的表达式
+
 ### 示例
 
-简单的对话框
-
-``` html
-<dialog ng-if="dialog.open" close="dialog.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello wrold</div>
-</dialog>
-```
-
-模态对话框
-
-``` html
-<dialog ng-if="dialog.open" modal close="dialog.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello wrold</div>
-</dialog>
-```
-
-有按钮的对话框
-
-``` html
-<dialog ng-if="dialog.open" close="dialog.open=false">
-    <div dialog-title>提示</div>  
-    <div dialog-content>hello wrold</div>
-    <div dialog-buttons>
-        <button autofocus>确定</button>
-        <button ng-click="$close()">取消</button>
-    </div>
-</dialog>
-```
-
-有状态栏
-
-``` html
-<dialog ng-if="dialog.open" close="dialog.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello wrold</div>
-    <div dialog-statusbar><label><input type="checkbox">下次不再显示</label></div>
-    <div dialog-buttons>
-        <button autofocus>确定</button>
-        <button ng-click="$close()">取消</button>
-    </div>
-</dialog>
-```
-
-可在元素附近打开的对话框
-
-``` html
-<button id="test-btn" ng-click="dialog={open: true}">打开对话框</button>
-<dialog ng-if="dialog.open" for="test-btn" close="dialog.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello wrold</div>
-</dialog>
-```
-
-定时关闭
-
-``` html
-<dialog ng-if="dialog.open" duration="2000" close="dialog.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello wrold</div>
-</dialog>
-```
+1. [普通对话框](./example/dialog-ng-if.html)
+2. [模态对话框](./example/dialog-modal.html)
+3. [带按钮的对话框](./example/dialog-dialog-buttons.html)
+4. [带状态栏的对话框](./example/dialog-dialog-statusbar.html)
+5. [无标题的对话框](./example/dialog-dialog-title.html)
+6. [无关闭按钮的对话框](./example/dialog-close.html)
+7. [带箭头的对话框](./example/dialog-for-align.html)
+8. [fixed 定位的对话框](./example/dialog-fixed.html)
+9. [自动关闭的对话框](./example/dialog-duration.html)
+10. [可拖拽的对话框](./example/dialog-drag.html)
 
 ## bubble
 
@@ -120,14 +98,9 @@ npm install angular-popups
 
 ### 示例
 
-在按钮附近显示一个气泡
-
-``` html
-<button ng-click="bubble.open = true">show bubble</button>
-<bubble ng-if="bubble.open" for="test" close="bubble.open=false">hello world</bubble>
-```
-
-> 如果没有 `close` ，点击外部或按 ESC 不会关闭气泡。
+1. [普通气泡](./example/bubble.html)
+2. [自定义气泡方向](./example/bubble-for-align.html)
+3. [不被关闭的气泡](./example/bubble-close.html)
 
 ## popup
 
@@ -135,13 +108,7 @@ npm install angular-popups
 
 ### 示例
 
-``` html
-<popup ng-if="popup.open">
-  <div class="mod-message-box">
-  	  ...
-  </div>
-</popup>
-```
+1. [自定义浮层](./example/popup.html)
 
 ## 许可
 
