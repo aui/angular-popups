@@ -19,7 +19,7 @@
 
 ### script
 
-下载：[angular-popups](#download)
+下载：[angular-popups](https://github.com/aui/angular-popups/files/63677/angular-popups.zip)
 
 调用
 
