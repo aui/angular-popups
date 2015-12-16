@@ -43,9 +43,39 @@
 </ul>
 
 <h2>
-<a id="安装" class="anchor" href="#%E5%AE%89%E8%A3%85" aria-hidden="true"><span class="octicon octicon-link"></span></a>安装</h2>
+<a id="使用" class="anchor" href="#%E4%BD%BF%E7%94%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用</h2>
+
+<p>支持使用 script 标签或者 webpack 调用：</p>
+
+<h3>
+<a id="script" class="anchor" href="#script" aria-hidden="true"><span class="octicon octicon-link"></span></a>script</h3>
+
+<p>下载：<a href="#download">angular-popups</a></p>
+
+<p>调用</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/jquery.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/angular.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/angular-popups.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>angular-popups<span class="pl-pds">'</span></span>]);</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+
+<h3>
+<a id="webpack" class="anchor" href="#webpack" aria-hidden="true"><span class="octicon octicon-link"></span></a>webpack</h3>
+
+<p>安装</p>
 
 <div class="highlight highlight-source-shell"><pre>npm install angular-popups</pre></div>
+
+<p>调用</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>angular-popups<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>angular-popups<span class="pl-pds">'</span></span>]);</pre></div>
+
+<blockquote>
+<p>angular-popups 依赖 <code>jquery</code> 和 <code>angular</code> 这两个全局模块</p>
+</blockquote>
 
 <h2>
 <a id="通用参数" class="anchor" href="#%E9%80%9A%E7%94%A8%E5%8F%82%E6%95%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>通用参数</h2>
@@ -141,60 +171,25 @@
 </tbody>
 </table>
 
+<blockquote>
+<p>对话框子指令中的事件可以使用 <code>$close()</code> 这个函数，它会调用通用参数 <code>close</code> 中的表达式</p>
+</blockquote>
+
 <h3>
 <a id="示例" class="anchor" href="#%E7%A4%BA%E4%BE%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
 
-<p>简单的对话框</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">dialog</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open=false<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-title</span>&gt;提示&lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-content</span>&gt;hello wrold&lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">dialog</span>&gt;</pre></div>
-
-<p>模态对话框</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">dialog</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open<span class="pl-pds">"</span></span> <span class="pl-e">modal</span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open=false<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-title</span>&gt;提示&lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-content</span>&gt;hello wrold&lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">dialog</span>&gt;</pre></div>
-
-<p>有按钮的对话框</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">dialog</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open=false<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-title</span>&gt;提示&lt;/<span class="pl-ent">div</span>&gt;  
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-content</span>&gt;hello wrold&lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-buttons</span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">autofocus</span>&gt;确定&lt;/<span class="pl-ent">button</span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">ng-click</span>=<span class="pl-s"><span class="pl-pds">"</span>$close()<span class="pl-pds">"</span></span>&gt;取消&lt;/<span class="pl-ent">button</span>&gt;
-    &lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">dialog</span>&gt;</pre></div>
-
-<p>有状态栏</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">dialog</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open=false<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-title</span>&gt;提示&lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-content</span>&gt;hello wrold&lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-statusbar</span>&gt;&lt;<span class="pl-ent">label</span>&gt;&lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span>&gt;下次不再显示&lt;/<span class="pl-ent">label</span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-buttons</span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">autofocus</span>&gt;确定&lt;/<span class="pl-ent">button</span>&gt;
-        &lt;<span class="pl-ent">button</span> <span class="pl-e">ng-click</span>=<span class="pl-s"><span class="pl-pds">"</span>$close()<span class="pl-pds">"</span></span>&gt;取消&lt;/<span class="pl-ent">button</span>&gt;
-    &lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">dialog</span>&gt;</pre></div>
-
-<p>可在元素附近打开的对话框</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">button</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>test-btn<span class="pl-pds">"</span></span> <span class="pl-e">ng-click</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog={open: true}<span class="pl-pds">"</span></span>&gt;打开对话框&lt;/<span class="pl-ent">button</span>&gt;
-&lt;<span class="pl-ent">dialog</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open<span class="pl-pds">"</span></span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>test-btn<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open=false<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-title</span>&gt;提示&lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-content</span>&gt;hello wrold&lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">dialog</span>&gt;</pre></div>
-
-<p>定时关闭</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">dialog</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open<span class="pl-pds">"</span></span> <span class="pl-e">duration</span>=<span class="pl-s"><span class="pl-pds">"</span>2000<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open=false<span class="pl-pds">"</span></span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-title</span>&gt;提示&lt;/<span class="pl-ent">div</span>&gt;
-    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-content</span>&gt;hello wrold&lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">dialog</span>&gt;</pre></div>
+<ol>
+<li><a href="./example/dialog-ng-if.html">普通对话框</a></li>
+<li><a href="./example/dialog-modal.html">模态对话框</a></li>
+<li><a href="./example/dialog-dialog-buttons.html">带按钮的对话框</a></li>
+<li><a href="./example/dialog-dialog-statusbar.html">带状态栏的对话框</a></li>
+<li><a href="./example/dialog-dialog-title.html">无标题的对话框</a></li>
+<li><a href="./example/dialog-close.html">无关闭按钮的对话框</a></li>
+<li><a href="./example/dialog-for-align.html">带箭头的对话框</a></li>
+<li><a href="./example/dialog-fixed.html">fixed 定位的对话框</a></li>
+<li><a href="./example/dialog-duration.html">自动关闭的对话框</a></li>
+<li><a href="./example/dialog-drag.html">可拖拽的对话框</a></li>
+</ol>
 
 <h2>
 <a id="bubble" class="anchor" href="#bubble" aria-hidden="true"><span class="octicon octicon-link"></span></a>bubble</h2>
@@ -204,14 +199,11 @@
 <h3>
 <a id="示例-1" class="anchor" href="#%E7%A4%BA%E4%BE%8B-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
 
-<p>在按钮附近显示一个气泡</p>
-
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">button</span> <span class="pl-e">ng-click</span>=<span class="pl-s"><span class="pl-pds">"</span>bubble.open = true<span class="pl-pds">"</span></span>&gt;show bubble&lt;/<span class="pl-ent">button</span>&gt;
-&lt;<span class="pl-ent">bubble</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>bubble.open<span class="pl-pds">"</span></span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>bubble.open=false<span class="pl-pds">"</span></span>&gt;hello world&lt;/<span class="pl-ent">bubble</span>&gt;</pre></div>
-
-<blockquote>
-<p>如果没有 <code>close</code> ，点击外部或按 ESC 不会关闭气泡。</p>
-</blockquote>
+<ol>
+<li><a href="./example/bubble.html">普通气泡</a></li>
+<li><a href="./example/bubble-for-align.html">自定义气泡方向</a></li>
+<li><a href="./example/bubble-close.html">不被关闭的气泡</a></li>
+</ol>
 
 <h2>
 <a id="popup" class="anchor" href="#popup" aria-hidden="true"><span class="octicon octicon-link"></span></a>popup</h2>
@@ -221,11 +213,9 @@
 <h3>
 <a id="示例-2" class="anchor" href="#%E7%A4%BA%E4%BE%8B-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">popup</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>popup.open<span class="pl-pds">"</span></span>&gt;
-  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>mod-message-box<span class="pl-pds">"</span></span>&gt;
-      ...
-  &lt;/<span class="pl-ent">div</span>&gt;
-&lt;/<span class="pl-ent">popup</span>&gt;</pre></div>
+<ol>
+<li><a href="./example/popup.html">自定义浮层</a></li>
+</ol>
 
 <h2>
 <a id="许可" class="anchor" href="#%E8%AE%B8%E5%8F%AF" aria-hidden="true"><span class="octicon octicon-link"></span></a>许可</h2>
