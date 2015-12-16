@@ -1,4 +1,5 @@
 .DS_Store
 node_modules/*
-!node_modules/jquery/dist
+!node_modules/jquery
+node_modules/jquery/src
 !node_modules/angular
