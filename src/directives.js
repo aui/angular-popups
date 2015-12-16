@@ -4,7 +4,7 @@
 
 var angular = require('angular');
 var Popup = require('./lib/popup');
-var directives = angular.module('popups', []);
+var directives = angular.module('angular-popups', []);
 
 
 
@@ -70,9 +70,10 @@ directives.popup = function(name, options) {
                 // 要转换的数据类型
                 var type = {
                     'for': 'String@id',
-                    'anchor': 'String@id',
+                    //'anchor': 'String@id',
                     'fixed': 'Boolean',
-                    'modal': 'Boolean'
+                    'modal': 'Boolean',
+                    'align': 'String'
                 };
 
 
@@ -92,21 +93,23 @@ directives.popup = function(name, options) {
                 // 设置属性
 
                 Object.keys(type).forEach(function(key) {
+                    var item = type[key];
                     var value = attrs[key];
+                    var name = key;
 
                     if (typeof value === 'undefined') {
                         return;
                     }
 
+                    if (parse[item]) {
+                        value = parse[item](value);
+                    }
+
                     if (map[key]) {
-                        key = map[key];
+                        name = map[key];
                     }
 
-                    if (type[key]) {
-                        value = parse[type[key]](value);
-                    }
-
-                    popup[key] = value;
+                    popup[name] = value;
                 });
 
 
