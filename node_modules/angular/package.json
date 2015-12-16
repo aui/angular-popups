@@ -1,0 +1,59 @@
+{
+  "name": "angular",
+  "version": "1.4.8",
+  "description": "HTML enhanced for web apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  },
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "client-side"
+  ],
+  "author": {
+    "name": "Angular Core Team",
+    "email": "angular-core+npm@google.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/angular/angular.js/issues"
+  },
+  "homepage": "http://angularjs.org",
+  "gitHead": "572a4fcc552c27c0f4bb1b9aab395249218c1255",
+  "_id": "angular@1.4.8",
+  "_shasum": "f4573d5019d21ebf44a6b5c28a14fbd9d5967449",
+  "_from": "angular@>=1.4.8 <2.0.0",
+  "_npmVersion": "2.0.2",
+  "_nodeVersion": "0.10.26",
+  "_npmUser": {
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  },
+  "maintainers": [
+    {
+      "name": "bclinkinbeard",
+      "email": "ben.clinkinbeard@gmail.com"
+    },
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "dist": {
+    "shasum": "f4573d5019d21ebf44a6b5c28a14fbd9d5967449",
+    "tarball": "http://registry.npmjs.org/angular/-/angular-1.4.8.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/angular/-/angular-1.4.8.tgz",
+  "readme": "ERROR: No README data found!"
+}
