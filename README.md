@@ -4,14 +4,11 @@
 
 1. 使用 AngularJS 自带的 `ng-if`、`ng-show`、`ng-hide` 控制浮层的显示与隐藏
 2. 支持 ARIA 规范、无障碍焦点管理、快捷键关闭
-3. 内置话框样式、气泡样式、透明样式
-4. 支持模态浮层、与指定元素对齐、自动关闭特性
+3. 完全基于 HTML 标签，高可定制化
+4. 可以指定元素对齐或者页面居中显示
+5. 可以使用模态特性
 
-**提供 4 个指令：**
-
-* `dialog` 对话框指令
-* `bubble` 气泡指令
-* `popup` 透明浮层指令
+演示站点：<http://aui.github.io/angular-popups/>
 
 ## 使用
 
@@ -35,7 +32,6 @@
 ### webpack
 
 安装
-
 ``` shell
 npm install angular-popups
 ```
@@ -48,21 +44,29 @@ var app = angular.module('app', ['angular-popups']);
 
 > angular-popups 依赖 `jquery` 和 `angular` 这两个全局模块
 
-## 通用参数
+## 指令
 
-| 名称          | 说明                                       |
+内置三个浮层指令：
+
+* `dialog` 对话框指令
+* `bubble` 气泡指令
+* `popup` 透明浮层指令
+
+## 浮层通用参数
+
+| 名称          | 说明                                    |
 | ----------- | ---------------------------------------- |
-| ng-if       | 显示或隐藏浮层（DOM 插入或删除）                       |
-| ng-show     | 显示浮层                                     |
-| ng-hide     | 隐藏浮层                                     |
-| for         | 有此值则吸附到指定 ID 的元素附近，否则居中对齐                |
+| ng-if       | 显示或隐藏浮层（DOM 插入或删除）              |
+| ng-show     | 显示浮层                                  |
+| ng-hide     | 隐藏浮层                                  |
+| for         | 指定元素对齐，传入目标元素 ID 即可            |
 | align       | 对齐的参数，此参数需要与 `for` 配合使用。可选值：`"top left"` `"top"` `"top right"` `"right top"` `"right"` `"right bottom"` `"bottom right"` `"bottom"` `"bottom left"` `"left bottom"` `"left"` `"left top"` |
-| fixed       | 使用固定定位                                   |
-| modal       | 模态浮层                                     |
-| duration    | 自动关闭的时间（单位毫秒）                            |
-| close       | 浮层关闭事件                                   |
-| drag        | 拖拽                                       |
-| drag-handle | 拖拽的把柄                                    |
+| fixed       | 使用固定定位，等同于 CSS fixed               |
+| modal       | 模态浮层                                   |
+| duration    | 自动关闭的时间（单位毫秒）                    |
+| close       | 浮层关闭事件                                |
+| drag        | 拖拽                                      |
+| drag-handle | 拖拽的把柄                                 |
 
 ## dialog
 
@@ -110,6 +114,18 @@ var app = angular.module('app', ['angular-popups']);
 
 1. [自定义浮层](./example/popup.html)
 
+## 兼容性
+
+* Chrome
+* Firefox
+* IE9+
+
 ## 许可
 
 MIT
+
+-----------------
+
+![支付宝二维码](./qr-alipay.png)
+
+喜欢这个项目？捐助￥26元请我一杯咖啡 :-)
