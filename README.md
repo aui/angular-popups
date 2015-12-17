@@ -4,8 +4,9 @@
 
 1. 使用 AngularJS 自带的 `ng-if`、`ng-show`、`ng-hide` 控制浮层的显示与隐藏
 2. 支持 ARIA 规范、无障碍焦点管理、快捷键关闭
-3. 纯粹的容器组件，完全基于 HTML 标签
-4. 支持模态、与指定元素对齐特性
+3. 完全基于 HTML 标签，高可定制化
+4. 可以指定元素对齐或者页面居中显示
+5. 可以使用模态特性
 
 演示站点：<http://aui.github.io/angular-popups/>
 
@@ -51,21 +52,21 @@ var app = angular.module('app', ['angular-popups']);
 * `bubble` 气泡指令
 * `popup` 透明浮层指令
 
-## 通用参数
+## 浮层通用参数
 
-| 名称          | 说明                                       |
+| 名称          | 说明                                    |
 | ----------- | ---------------------------------------- |
-| ng-if       | 显示或隐藏浮层（DOM 插入或删除）                       |
-| ng-show     | 显示浮层                                     |
-| ng-hide     | 隐藏浮层                                     |
-| for         | 有此值则吸附到指定 ID 的元素附近，否则居中对齐                |
+| ng-if       | 显示或隐藏浮层（DOM 插入或删除）              |
+| ng-show     | 显示浮层                                  |
+| ng-hide     | 隐藏浮层                                  |
+| for         | 指定元素对齐，传入目标元素 ID 即可            |
 | align       | 对齐的参数，此参数需要与 `for` 配合使用。可选值：`"top left"` `"top"` `"top right"` `"right top"` `"right"` `"right bottom"` `"bottom right"` `"bottom"` `"bottom left"` `"left bottom"` `"left"` `"left top"` |
-| fixed       | 使用固定定位                                   |
-| modal       | 模态浮层                                     |
-| duration    | 自动关闭的时间（单位毫秒）                            |
-| close       | 浮层关闭事件                                   |
-| drag        | 拖拽                                       |
-| drag-handle | 拖拽的把柄                                    |
+| fixed       | 使用固定定位，等同于 CSS fixed               |
+| modal       | 模态浮层                                   |
+| duration    | 自动关闭的时间（单位毫秒）                    |
+| close       | 浮层关闭事件                                |
+| drag        | 拖拽                                      |
+| drag-handle | 拖拽的把柄                                 |
 
 ## dialog
 
@@ -126,4 +127,5 @@ MIT
 -----------------
 
 ![支付宝二维码](./qr-alipay.png)
+
 喜欢这个项目？捐助￥26元请我一杯咖啡 :-)
