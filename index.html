@@ -27,20 +27,12 @@
 <ol>
 <li>使用 AngularJS 自带的 <code>ng-if</code>、<code>ng-show</code>、<code>ng-hide</code> 控制浮层的显示与隐藏</li>
 <li>支持 ARIA 规范、无障碍焦点管理、快捷键关闭</li>
-<li>内置话框样式、气泡样式、透明样式</li>
-<li>支持模态浮层、与指定元素对齐、自动关闭特性</li>
+<li>完全基于 HTML 标签，高可定制化</li>
+<li>可以指定元素对齐或者页面居中显示</li>
+<li>可以使用模态特性</li>
 </ol>
 
-<p><strong>提供 4 个指令：</strong></p>
-
-<ul>
-<li>
-<code>dialog</code> 对话框指令</li>
-<li>
-<code>bubble</code> 气泡指令</li>
-<li>
-<code>popup</code> 透明浮层指令</li>
-</ul>
+<p>演示站点：<a href="http://aui.github.io/angular-popups/">http://aui.github.io/angular-popups/</a></p>
 
 <h2>
 <a id="使用" class="anchor" href="#%E4%BD%BF%E7%94%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用</h2>
@@ -78,7 +70,21 @@
 </blockquote>
 
 <h2>
-<a id="通用参数" class="anchor" href="#%E9%80%9A%E7%94%A8%E5%8F%82%E6%95%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>通用参数</h2>
+<a id="指令" class="anchor" href="#%E6%8C%87%E4%BB%A4" aria-hidden="true"><span class="octicon octicon-link"></span></a>指令</h2>
+
+<p>内置三个浮层指令：</p>
+
+<ul>
+<li>
+<code>dialog</code> 对话框指令</li>
+<li>
+<code>bubble</code> 气泡指令</li>
+<li>
+<code>popup</code> 透明浮层指令</li>
+</ul>
+
+<h2>
+<a id="浮层通用参数" class="anchor" href="#%E6%B5%AE%E5%B1%82%E9%80%9A%E7%94%A8%E5%8F%82%E6%95%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>浮层通用参数</h2>
 
 <table>
 <thead>
@@ -102,7 +108,7 @@
 </tr>
 <tr>
 <td>for</td>
-<td>有此值则吸附到指定 ID 的元素附近，否则居中对齐</td>
+<td>指定元素对齐，传入目标元素 ID 即可</td>
 </tr>
 <tr>
 <td>align</td>
@@ -111,7 +117,7 @@
 </tr>
 <tr>
 <td>fixed</td>
-<td>使用固定定位</td>
+<td>使用固定定位，等同于 CSS fixed</td>
 </tr>
 <tr>
 <td>modal</td>
@@ -218,9 +224,24 @@
 </ol>
 
 <h2>
+<a id="兼容性" class="anchor" href="#%E5%85%BC%E5%AE%B9%E6%80%A7" aria-hidden="true"><span class="octicon octicon-link"></span></a>兼容性</h2>
+
+<ul>
+<li>Chrome</li>
+<li>Firefox</li>
+<li>IE9+</li>
+</ul>
+
+<h2>
 <a id="许可" class="anchor" href="#%E8%AE%B8%E5%8F%AF" aria-hidden="true"><span class="octicon octicon-link"></span></a>许可</h2>
 
 <p>MIT</p>
+
+<hr>
+
+<p><img src="./qr-alipay.png" alt="支付宝二维码"></p>
+
+<p>喜欢这个项目？捐助￥26元请我一杯咖啡 :-)</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/aui/angular-popups">Angular-popups</a> is maintained by <a href="https://github.com/aui">aui</a>.</span>
