@@ -126,6 +126,6 @@ MIT
 
 -----------------
 
-![支付宝二维码](./qr-alipay.png)
+![支付宝二维码](http://aui.github.io/angular-popups/qr-alipay.png)
 
 喜欢这个项目？捐助￥26元请我一杯咖啡 :-)
