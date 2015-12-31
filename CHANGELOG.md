@@ -1,3 +1,8 @@
+## 0.0.1-beta3
+
+1. 去掉 `jquery` 依赖
+2. 移除 `drag` 指令
+
 ## 0.0.1-beta2
 
 1. 模块名由 `popups` 改成 `angular-popups`

@@ -4,30 +4,28 @@
 
 require('./css/ui-bubble.css');
 
-var $ = require('jquery');
 var directives = require('./directives');
 
 directives.popup('bubble', {
-    template:
-        '<div class="ui-popup">' +
-            '<div class="ui-bubble">' +
-                '<div ng-transclude class="ui-bubble-content"></div>' +
-            '</div>' +
+    template: '<div class="ui-popup">' +
+        '<div class="ui-bubble">' +
+        '<div ng-transclude class="ui-bubble-content"></div>' +
+        '</div>' +
         '</div>',
     link: function(scope, elem, attrs, superheroCtrl) {
 
-        var events = 'mousedown touchstart';
-
         function click(event) {
-            if (!$.contains(elem[0], event.target)) {
+            if (!elem[0].contains(event.target)) {
                 superheroCtrl.$close();
             }
         }
 
-        $(document).on(events, click);
+        document.addEventListener('mousedown', click, false);
+        document.addEventListener('touchstart', click, false);
 
         elem.on('$destroy', function() {
-            $(document).off(events, click);
+            document.removeEventListener('mousedown', click);
+            document.removeEventListener('touchstart', click);
         });
 
     }

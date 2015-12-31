@@ -3,8 +3,7 @@
 'use strict';
 
 require('./css/ui-dialog.css');
-
-var $ = require('jquery');
+var angular = require('angular');
 var directives = require('./directives');
 
 
@@ -25,9 +24,16 @@ directives.popup('dialog', {
     template: '<div class="ui-popup" aria-labelledby="{{$dialogId}}-title" aria-describedby="{{$dialogId}}-content" ng-transclude></div>',
     link: function(scope, elem, attrs, superheroCtrl) {
 
-        var dialog = $(dialogTpl);
+        var node = elem[0];
+        var dialog = createElement(dialogTpl);
 
         scope.$dialogId = 'ui-dialog' + scope.$id;
+
+        function createElement(html) {
+            var temp = document.createElement('div');
+            temp.innerHTML = html;
+            return temp.firstChild;
+        }
 
         var childDirective = function(name) {
             var prefix = 'dialog';
@@ -37,40 +43,55 @@ directives.popup('dialog', {
             var a2 = '[' + e2 + ']';
             var c = '.ui-' + prefix + '-' + name;
 
-            return elem.find([e, e2, a, a2, c].join(','));
+            return node.querySelector([e, e2, a, a2, c].join(','));
         };
 
         var childElem = function(name) {
-            return dialog.find('.ui-dialog-' + name);
+            return dialog.querySelector('.ui-dialog-' + name);
         };
 
-        var closeNode = $(attrs.close ? closeTpl : '');
+        var closeNode = attrs.close ? createElement(closeTpl) : null;
         var titleNode = childDirective('title');
         var contentNode = childDirective('content');
         var statusbarNode = childDirective('statusbar');
         var buttonsNode = childDirective('buttons');
 
 
-        childElem('header').append(closeNode).append(titleNode);
-        childElem('body').append(contentNode);
-        childElem('footer').append(statusbarNode).append(buttonsNode);
+        var headerNode = childElem('header');
+        var bodyNode = childElem('body');
+        var footerNode = childElem('footer');
+
+        appendChild(headerNode, closeNode);
+        appendChild(headerNode, titleNode);
+        appendChild(bodyNode, contentNode);
+        appendChild(footerNode, statusbarNode);
+        appendChild(footerNode, buttonsNode);
 
 
-        if (!titleNode[0]) {
-            childElem('header').remove();
+        if (!titleNode) {
+            headerNode.remove();
         }
 
-        if (!statusbarNode[0] && !buttonsNode[0]) {
-            childElem('footer').remove();
+        if (!statusbarNode && !buttonsNode) {
+            footerNode.remove();
         }
 
 
-        closeNode.click(function () {
-            superheroCtrl.$close();
-        });
+        if (closeNode) {
+            closeNode.addEventListener('click', function() {
+                superheroCtrl.$close();
+            }, false);
+        }
 
 
-        elem.append(dialog);
+        appendChild(node, dialog);
+
+
+        function appendChild(parent, child) {
+            if (child) {
+                parent.appendChild(child);
+            }
+        }
 
     }
 });
@@ -94,7 +115,7 @@ childDirective('dialogButtons', {
 
 
 function childDirective(subName, subOptions) {
-    directives.directive(subName, function () {
+    directives.directive(subName, function() {
         return angular.extend({
             require: '^dialog',
             restrict: 'AE',

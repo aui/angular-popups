@@ -16,7 +16,6 @@ module.exports = {
         new webpack.BannerPlugin('popups@' + version + ' | https://github.com/aui/angular-popups')
     ],
     externals: {
-        jquery: 'jQuery',
         angular: 'angular'
     },
     module: {

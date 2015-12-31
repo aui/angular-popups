@@ -1,6 +1,6 @@
 {
   "name": "angular-popups",
-  "version": "0.0.1-beta2",
+  "version": "0.0.1-beta3",
   "readmeFilename": "README.md",
   "description": "基于 AngularJS 的浮层组件",
   "homepage": "https://github.com/aui/angular-popups",
@@ -24,7 +24,6 @@
     "angular": "^1.4.8",
     "css-loader": "^0.23.0",
     "extract-text-webpack-plugin": "^0.9.1",
-    "jquery": "^2.1.4",
     "jshint": "^2.8.0",
     "jshint-loader": "^0.8.3",
     "style-loader": "^0.13.0",

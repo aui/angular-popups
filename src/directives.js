@@ -58,7 +58,6 @@ directives.popup = function(name, options) {
             }],
             link: function(scope, elem, attrs, superheroCtrl) {
 
-                var $ = angular.element;
                 var popup = new Popup(elem[0], true);
 
 
@@ -175,7 +174,7 @@ directives.popup = function(name, options) {
                 }
 
 
-                $(document).on('keydown', esc);
+                document.addEventListener('keydown', esc, false);
 
 
                 (options.link || function() {}).apply(this, arguments);
@@ -185,7 +184,7 @@ directives.popup = function(name, options) {
                 // 控制器销毁或者 ng-if="false" 都可能触发此
                 // scope.$on('$destroy', callback) >> 这种方式对 ngAnimate 支持不好
                 elem.one('$destroy', function() {
-                    $(document).off('keydown', esc);
+                    document.removeEventListener('keydown', esc);
                     popup.close().remove();
                 });
 
