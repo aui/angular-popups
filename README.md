@@ -8,7 +8,7 @@
 4. 可以指定元素对齐或者页面居中显示
 5. 可以使用模态特性
 
-演示站点：<http://aui.github.io/angular-popups/>
+演示站点：<https://aui.github.io/angular-popups/>
 
 ## 使用
 
@@ -85,16 +85,16 @@ var app = angular.module('app', ['angular-popups']);
 
 ### 示例
 
-1. [普通对话框](./example/dialog-ng-if.html)
-2. [模态对话框](./example/dialog-modal.html)
-3. [带按钮的对话框](./example/dialog-dialog-buttons.html)
-4. [带状态栏的对话框](./example/dialog-dialog-statusbar.html)
-5. [无标题的对话框](./example/dialog-dialog-title.html)
-6. [无关闭按钮的对话框](./example/dialog-close.html)
-7. [带箭头的对话框](./example/dialog-for-align.html)
-8. [fixed 定位的对话框](./example/dialog-fixed.html)
-9. [自动关闭的对话框](./example/dialog-duration.html)
-10. [可拖拽的对话框](./example/dialog-drag.html)
+1. [普通对话框](https://aui.github.io/angular-popups/example/dialog-ng-if.html)
+2. [模态对话框](https://aui.github.io/angular-popups/example/dialog-modal.html)
+3. [带按钮的对话框](https://aui.github.io/angular-popups/example/dialog-dialog-buttons.html)
+4. [带状态栏的对话框](https://aui.github.io/angular-popups/example/dialog-dialog-statusbar.html)
+5. [无标题的对话框](https://aui.github.io/angular-popups/example/dialog-dialog-title.html)
+6. [无关闭按钮的对话框](https://aui.github.io/angular-popups/example/dialog-close.html)
+7. [带箭头的对话框](https://aui.github.io/angular-popups/example/dialog-for-align.html)
+8. [fixed 定位的对话框](https://aui.github.io/angular-popups/example/dialog-fixed.html)
+9. [自动关闭的对话框](https://aui.github.io/angular-popups/example/dialog-duration.html)
+10. [可拖拽的对话框](https://aui.github.io/angular-popups/example/dialog-drag.html)
 
 ## bubble
 
@@ -102,9 +102,9 @@ var app = angular.module('app', ['angular-popups']);
 
 ### 示例
 
-1. [普通气泡](./example/bubble.html)
-2. [自定义气泡方向](./example/bubble-for-align.html)
-3. [不被关闭的气泡](./example/bubble-close.html)
+1. [普通气泡](https://aui.github.io/angular-popups/example/bubble.html)
+2. [自定义气泡方向](https://aui.github.io/angular-popups/example/bubble-for-align.html)
+3. [不被关闭的气泡](https://aui.github.io/angular-popups/example/bubble-close.html)
 
 ## popup
 
@@ -112,7 +112,7 @@ var app = angular.module('app', ['angular-popups']);
 
 ### 示例
 
-1. [自定义浮层](./example/popup.html)
+1. [自定义浮层](https://aui.github.io/angular-popups/example/popup.html)
 
 ## 兼容性
 
@@ -122,7 +122,7 @@ var app = angular.module('app', ['angular-popups']);
 
 ## 许可
 
-MIT
+[MIT](./LICENSE)
 
 -----------------
 
