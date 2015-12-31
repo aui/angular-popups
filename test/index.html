@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>test</title>
     <!-- <link rel="stylesheet" href="../dist/angular-popups.css"> -->
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/angular/angular.min.js"></script>
     <script src="../dist/angular-popups.js"></script>
 
@@ -54,12 +53,6 @@
     <div dialog-content>hello world</div>
 </dialog>
 
-<button ng-click="dialog6={open: true}">dialog:可拖拽</button>
-<dialog ng-if="dialog6.open" drag close="dialog6.open=false">
-    <div dialog-title drag-handle>提示</div>
-    <div dialog-content>hello world</div>
-</dialog>
-
 <button id="dialog7-btn" ng-click="dialog7={open: true}">dialog:可吸附</button>
 <dialog ng-if="dialog7.open" for="dialog7-btn" close="dialog7.open=false">
     <div dialog-title>提示</div>
@@ -77,7 +70,6 @@
 <button id="test" ng-click="x={open:true}" style="position: absolute;left:200px;top:50px">bubble:show</button>
 <bubble ng-show="x.open" for="test" close="x.open=false">hello world</bubble>
 
-<button drag style="position: absolute;left:400px;top:50px">drag me</button>
 
 <button ng-click="popup={open:true}" style="position: absolute;left:500px;top:50px">show popup</button>
 <popup ng-if="popup.open" close="popup.open=false">

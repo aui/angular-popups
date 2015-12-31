@@ -7,12 +7,13 @@
 3. 完全基于 HTML 标签，高可定制化
 4. 可以指定元素对齐或者页面居中显示
 5. 可以使用模态特性
+6. 不依赖 jQuery 等外部库
 
 演示站点：<https://aui.github.io/angular-popups/>
 
 ## 使用
 
-支持使用 script 标签或者 webpack 调用：
+支持使用 script 标签或者 webpack、rquirejs、seajs 调用：
 
 ### script
 
@@ -21,7 +22,6 @@
 调用
 
 ```html
-<script src="js/jquery.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/angular-popups.js"></script>
 <script>
@@ -42,7 +42,7 @@ require('angular-popups');
 var app = angular.module('app', ['angular-popups']);
 ```
 
-> angular-popups 依赖 `jquery` 和 `angular` 这两个全局模块
+> angular-popups 依赖 `angular` 这个全局模块
 
 ## 指令
 
@@ -65,8 +65,6 @@ var app = angular.module('app', ['angular-popups']);
 | modal       | 模态浮层                                   |
 | duration    | 自动关闭的时间（单位毫秒）                    |
 | close       | 浮层关闭事件                                |
-| drag        | 拖拽                                      |
-| drag-handle | 拖拽的把柄                                 |
 
 ## dialog
 
@@ -94,7 +92,6 @@ var app = angular.module('app', ['angular-popups']);
 7. [带箭头的对话框](https://aui.github.io/angular-popups/example/dialog-for-align.html)
 8. [fixed 定位的对话框](https://aui.github.io/angular-popups/example/dialog-fixed.html)
 9. [自动关闭的对话框](https://aui.github.io/angular-popups/example/dialog-duration.html)
-10. [可拖拽的对话框](https://aui.github.io/angular-popups/example/dialog-drag.html)
 
 ## bubble
 

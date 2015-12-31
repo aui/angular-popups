@@ -1,10 +1,6 @@
-/* global require,module */
+/* global module */
 
 'use strict';
-
-var $ = require('jquery');
-
-var _count = 0;
 
 
 /**
@@ -16,84 +12,24 @@ function Popup(node, _ng) {
     this.destroyed = false;
     this.__ng = _ng;
 
-
-    this.__popup = $(node || '<div />')
-        /*使用 <dialog /> 元素可能导致 z-index 永远置顶的问题(chrome)*/
-        .css({
-            //outline: 0,
-            position: 'absolute'
-                /*,
-
-                        left: 0,
-                        top: 0,
-                        bottom: 'auto',
-                        right: 'auto',
-                        margin: 0,
-                        padding: 0,
-                        border: '0 none',
-                        background: 'transparent'
-                        */
-        })
-        .attr('tabindex', '-1')
-        .appendTo('body');
+    node = node || document.createElement('div');
+    node.style.position = 'absolute';
+    node.setAttribute('tabindex', '-1');
+    document.body.appendChild(node);
 
 
     if (!this.__ng) {
-        this.__popup.hide();
+        node.style.display = 'none';
     }
 
-
-    // 使用 HTMLElement 作为外部接口使用，而不是 jquery 对象
-    // 统一的接口利于未来 Popup 移植到其他 DOM 库中
-    this.node = this.__popup[0];
-
-    _count++;
+    this.node = node;
 }
 
 
-$.extend(Popup.prototype, {
 
-    /**
-     * 初始化完毕事件，在 show()、showModal() 执行
-     * @name Popup.prototype.onshow
-     * @event
-     */
+Popup.prototype = {
 
-    /**
-     * 关闭事件，在 close() 执行
-     * @name Popup.prototype.onclose
-     * @event
-     */
-
-    /**
-     * 销毁前事件，在 remove() 前执行
-     * @name Popup.prototype.onbeforeremove
-     * @event
-     */
-
-    /**
-     * 销毁事件，在 remove() 执行
-     * @name Popup.prototype.onremove
-     * @event
-     */
-
-    /**
-     * 重置事件，在 reset() 执行
-     * @name Popup.prototype.onreset
-     * @event
-     */
-
-    /**
-     * 焦点事件，在 foucs() 执行
-     * @name Popup.prototype.onfocus
-     * @event
-     */
-
-    /**
-     * 失焦事件，在 blur() 执行
-     * @name Popup.prototype.onblur
-     * @event
-     */
+    constructor: Popup,
 
     /** 浮层 DOM 素节点[*] */
     node: null,
@@ -129,7 +65,7 @@ $.extend(Popup.prototype, {
             return this;
         }
 
-        var popup = this.__popup;
+        var node = this.node;
 
         this.__activeElement = this.__getActive();
 
@@ -137,31 +73,36 @@ $.extend(Popup.prototype, {
         this.anchor = anchor;
 
 
-        popup
-            .addClass(this.className)
-            .addClass(this.__name('show'))
-            .attr('role', this.modal ? 'alertdialog' : 'dialog');
+        node.classList.add(this.className);
+        node.classList.add(this.__name('show'));
+        node.setAttribute('role', this.modal ? 'alertdialog' : 'dialog');
+
+
+        if (!this.__show) {
+            this.focus = this.focus.bind(this);
+            this.reset = this.reset.bind(this);
+            this.__show = true;
+        }
 
 
         // 模态浮层的遮罩
         if (this.modal) {
 
-            popup.addClass(this.__name('modal'));
+            node.classList.add(this.__name('modal'));
 
             // 让焦点限制在浮层内
-            $(document).on('focusin', $.proxy(this.focus, this));
+            document.addEventListener('focusin', this.focus, false);
         }
 
 
         if (!this.__ng) {
-            popup.show();
+            node.style.display = 'block';
         }
 
 
-        $(window).on('resize', $.proxy(this.reset, this));
+        window.addEventListener('resize', this.reset, false);
 
         this.reset().focus();
-        this.__dispatchEvent('show');
 
         return this;
     },
@@ -179,23 +120,24 @@ $.extend(Popup.prototype, {
 
         if (!this.destroyed && this.open) {
 
+            var node = this.node;
+
             if (result !== undefined) {
                 this.returnValue = result;
             }
 
-            this.__popup.removeClass(this.__name('show'));
-            this.__popup.removeClass(this.__name('modal'));
+            node.classList.remove(this.__name('show'));
+            node.classList.remove(this.__name('modal'));
 
             if (!this.__ng) {
-                this.__popup.hide();
+                node.style.display = 'none';
             }
 
             this.open = false;
             this.blur(); // 恢复焦点，照顾键盘操作的用户
-            this.__dispatchEvent('close');
 
-            $(document).off('focusin', $.proxy(this.focus, this));
-            $(window).off('resize', this.reset);
+            document.removeEventListener('focusin', this.focus);
+            window.removeEventListener('resize', this.reset);
         }
 
         return this;
@@ -210,9 +152,6 @@ $.extend(Popup.prototype, {
         }
 
 
-        this.__dispatchEvent('beforeremove');
-
-
         if (this.open) {
             this.close();
         }
@@ -223,12 +162,8 @@ $.extend(Popup.prototype, {
         }
 
 
-        // 从 DOM 中移除节点
-        // jQuery#remove 方法会自动卸载元素上绑定的事件
-        this.__popup.remove();
+        this.node.remove();
 
-
-        this.__dispatchEvent('remove');
 
         for (var i in this) {
             delete this[i];
@@ -248,18 +183,16 @@ $.extend(Popup.prototype, {
         var anchor = this.anchor;
 
         if (typeof anchor === 'string') {
-            anchor = this.anchor = $(anchor)[0];
+            anchor = this.anchor = document.querySelector(anchor);
         }
 
-        this.__popup.css('position', this.fixed ? 'fixed' : 'absolute');
+        this.node.style.position = this.fixed ? 'fixed' : 'absolute';
 
         if (anchor) {
             this.__anchor(anchor);
         } else {
             this.__center();
         }
-
-        this.__dispatchEvent('reset');
 
         return this;
     },
@@ -269,7 +202,6 @@ $.extend(Popup.prototype, {
     focus: function() {
 
         var node = this.node;
-        var popup = this.__popup;
         var current = Popup.current;
         var index = this.zIndex = Popup.zIndex++;
 
@@ -278,8 +210,8 @@ $.extend(Popup.prototype, {
         }
 
         // 检查焦点是否在浮层里面
-        if (!$.contains(node, this.__getActive())) {
-            var autofocus = popup.find('[autofocus]')[0];
+        if (!node.contains(this.__getActive())) {
+            var autofocus = node.querySelector('[autofocus]');
 
             if (!this._autofocus && autofocus) {
                 this._autofocus = true;
@@ -291,12 +223,11 @@ $.extend(Popup.prototype, {
         }
 
         // 设置叠加高度
-        popup.css('zIndex', index);
+        node.style.zIndex = index;
+
 
         Popup.current = this;
-        popup.addClass(this.__name('focus'));
-
-        this.__dispatchEvent('focus');
+        node.classList.add(this.__name('focus'));
 
         return this;
     },
@@ -309,74 +240,19 @@ $.extend(Popup.prototype, {
         var now = this.__getActive();
         var isBlur = arguments[0];
 
-        if (isBlur !== false && (this.node === now || $.contains(this.node, now))) {
+        if (isBlur !== false && this.node.contains(now)) {
             this.__focus(activeElement);
         }
 
         this._autofocus = false;
-        this.__popup.removeClass(this.__name('focus'));
-        this.__dispatchEvent('blur');
+        this.node.classList.remove(this.__name('focus'));
 
-        return this;
-    },
-
-
-    /**
-     * 添加事件
-     * @param   {String}    事件类型
-     * @param   {Function}  监听函数
-     */
-    addEventListener: function(type, callback) {
-        this.__getEventListener(type).push(callback);
-        return this;
-    },
-
-
-    /**
-     * 删除事件
-     * @param   {String}    事件类型
-     * @param   {Function}  监听函数
-     */
-    removeEventListener: function(type, callback) {
-        var listeners = this.__getEventListener(type);
-        for (var i = 0; i < listeners.length; i++) {
-            if (callback === listeners[i]) {
-                listeners.splice(i--, 1);
-            }
-        }
         return this;
     },
 
 
     __name: function(name) {
         return this.className + '-' + name;
-    },
-
-
-    // 获取事件缓存
-    __getEventListener: function(type) {
-        var listener = this.__listener;
-        if (!listener) {
-            listener = this.__listener = {};
-        }
-        if (!listener[type]) {
-            listener[type] = [];
-        }
-        return listener[type];
-    },
-
-
-    // 派发事件
-    __dispatchEvent: function(type) {
-        var listeners = this.__getEventListener(type);
-
-        if (this['on' + type]) {
-            this['on' + type]();
-        }
-
-        for (var i = 0; i < listeners.length; i++) {
-            listeners[i].call(this);
-        }
     },
 
 
@@ -407,19 +283,17 @@ $.extend(Popup.prototype, {
     // 居中浮层
     __center: function() {
 
-        var popup = this.__popup;
-        var $window = $(window);
-        var $document = $(document);
+        var node = this.node;
         var fixed = this.fixed;
-        var dl = fixed ? 0 : $document.scrollLeft();
-        var dt = fixed ? 0 : $document.scrollTop();
-        var ww = $window.width();
-        var wh = $window.height();
-        var ow = popup.width();
-        var oh = popup.height();
+        var dl = fixed ? 0 : getDocumentScroll('Left');
+        var dt = fixed ? 0 : getDocumentScroll('Top');
+        var ww = getWindowSize('Width');
+        var wh = getWindowSize('Height');
+        var ow = node.offsetWidth;
+        var oh = node.offsetHeight;
         var left = (ww - ow) / 2 + dl;
         var top = (wh - oh) * 382 / 1000 + dt; // 黄金比例
-        var style = popup[0].style;
+        var style = node.style;
 
 
         style.left = Math.max(parseInt(left), dl) + 'px';
@@ -430,39 +304,35 @@ $.extend(Popup.prototype, {
     // 指定位置 @param    {HTMLElement, Event}  anchor
     __anchor: function(anchor) {
 
-        var $elem = anchor.parentNode && $(anchor);
-        var popup = this.__popup;
+        var elem = anchor.parentNode && anchor;
+        var node = this.node;
 
 
-        if (this.__anchorSkin) {
-            popup.removeClass(this.__anchorSkin);
+        if (this.__anchorClass) {
+            node.classList.remove(this.__anchorClass);
+            node.classList.remove(this.__name('anchor'));
         }
 
 
         // 隐藏元素不可用
-        if ($elem) {
-            var o = $elem.offset();
-            if (o.left * o.top < 0) {
-                return this.__center();
-            }
+        if (elem && elem.offsetLeft * elem.offsetTop < 0) {
+            return this.__center();
         }
 
         var that = this;
         var fixed = this.fixed;
 
-        var $window = $(window);
-        var $document = $(document);
-        var winWidth = $window.width();
-        var winHeight = $window.height();
-        var docLeft = $document.scrollLeft();
-        var docTop = $document.scrollTop();
+        var winWidth = getWindowSize('Width');
+        var winHeight = getWindowSize('Height');
+        var docLeft = getDocumentScroll('Left');
+        var docTop = getDocumentScroll('Top');
 
 
-        var popupWidth = popup.width();
-        var popupHeight = popup.height();
-        var width = $elem ? $elem.outerWidth() : 0;
-        var height = $elem ? $elem.outerHeight() : 0;
-        var offset = this.__offset(anchor);
+        var popupWidth = node.offsetWidth;
+        var popupHeight = node.offsetHeight;
+        var width = elem.offsetWidth || 0;
+        var height = elem.offsetHeight || 0;
+        var offset = getOffset();
         var x = offset.left;
         var y = offset.top;
         var left = fixed ? x - docLeft : x;
@@ -518,7 +388,7 @@ $.extend(Popup.prototype, {
 
 
         // 超出可视区域重新适应位置
-        $.each(align, function(i, val) {
+        align.forEach(function(val, i) {
 
             // 超出右或下边界：使用左或者上边对齐
             if (temp[i][val] > range[name[val]][1]) {
@@ -540,37 +410,48 @@ $.extend(Popup.prototype, {
         }
 
 
-        // 添加 anchor 的 css
-        className += align.join('-') + ' ' + this.__name('anchor');
-
-        that.__anchorSkin = className;
-
-
-        if ($elem) {
-            popup.addClass(className);
+        if (elem) {
+            // 添加 anchor 的 css
+            className += align.join('-');
+            that.__anchorClass = className;
+            node.classList.add(className);
+            node.classList.add(this.__name('anchor'));
         }
 
 
         css[name[align[0]]] = parseInt(temp[0][align[0]]);
         css[name[align[1]]] = parseInt(temp[1][align[1]]);
-        popup.css(css);
-
-    },
 
 
-    // 获取元素相对于页面的位置（不支持 iframe 内的元素）
-    __offset: function(anchor) {
+        Object.keys(css).forEach(function(key) {
+            var value = css[key];
+            node.style[key] = value + 'px';
+        });
 
-        var isNode = !!anchor.parentNode;
-        var offset = isNode ? $(anchor).offset() : {
-            left: anchor.pageX,
-            top: anchor.pageY
-        };
 
-        return offset;
+        // 获取元素或 Event 对象相对于页面的位置（不支持 iframe 内的元素）
+        function getOffset() {
+            if (elem) {
+
+                var win = window;
+                var docElem = document.documentElement;
+                var box = elem.getBoundingClientRect();
+
+                return {
+                    top: box.top + win.pageYOffset - docElem.clientTop,
+                    left: box.left + win.pageXOffset - docElem.clientLeft
+                };
+            } else {
+                return {
+                    left: anchor.pageX,
+                    top: anchor.pageY
+                };
+            }
+        }
+
     }
 
-});
+};
 
 
 /** 当前叠加高度 */
@@ -581,7 +462,25 @@ Popup.zIndex = 1024;
 Popup.current = null;
 
 
+
+// 获取窗口大小
+function getWindowSize(name) {
+    return document.documentElement['client' + name];
+}
+
+// 获取页面滚动条位置
+function getDocumentScroll(name) {
+    var type = {
+        Left: 'pageXOffset',
+        Top: 'pageYOffset'
+    };
+    return window[type[name]];
+}
+
+
+
 module.exports = Popup;
+
 
 // 更新记录
 // 取消对 iframe 支持
@@ -590,5 +489,8 @@ module.exports = Popup;
 // 删除遮罩层
 // 支持传入 elem
 // 修复 resize 可能被重复监听的 BUG
+// 移除 jQuery，只支持 IE9+
+// 移除事件系统
+
 // TODO showModal focus 优化
 // TODO zIndex 优化
