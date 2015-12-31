@@ -17,13 +17,11 @@
 
 ### script
 
-下载：[angular-popups](https://github.com/aui/angular-popups/files/63677/angular-popups.zip)
-
 调用
 
 ```html
-<script src="js/angular.js"></script>
-<script src="js/angular-popups.js"></script>
+<script src="lib/angular.js"></script>
+<script src="dist/angular-popups.js"></script>
 <script>
     var app = angular.module('app', ['angular-popups']);
 </script>
