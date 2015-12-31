@@ -30,25 +30,23 @@
 <li>完全基于 HTML 标签，高可定制化</li>
 <li>可以指定元素对齐或者页面居中显示</li>
 <li>可以使用模态特性</li>
+<li>不依赖 jQuery 等外部库</li>
 </ol>
 
-<p>演示站点：<a href="http://aui.github.io/angular-popups/">http://aui.github.io/angular-popups/</a></p>
+<p>演示站点：<a href="https://aui.github.io/angular-popups/">https://aui.github.io/angular-popups/</a></p>
 
 <h2>
 <a id="使用" class="anchor" href="#%E4%BD%BF%E7%94%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用</h2>
 
-<p>支持使用 script 标签或者 webpack 调用：</p>
+<p>支持使用 script 标签或者 webpack、rquirejs、seajs 调用：</p>
 
 <h3>
 <a id="script" class="anchor" href="#script" aria-hidden="true"><span class="octicon octicon-link"></span></a>script</h3>
 
-<p>下载：<a href="https://github.com/aui/angular-popups/files/63677/angular-popups.zip">angular-popups</a></p>
-
 <p>调用</p>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/jquery.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
-&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/angular.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
-&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>js/angular-popups.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>lib/angular.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>dist/angular-popups.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
 <span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
 <span class="pl-s1">    <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>angular-popups<span class="pl-pds">'</span></span>]);</span>
 <span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
@@ -66,7 +64,7 @@
 <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>angular-popups<span class="pl-pds">'</span></span>]);</pre></div>
 
 <blockquote>
-<p>angular-popups 依赖 <code>jquery</code> 和 <code>angular</code> 这两个全局模块</p>
+<p>angular-popups 依赖 <code>angular</code> 这个全局模块</p>
 </blockquote>
 
 <h2>
@@ -131,14 +129,6 @@
 <td>close</td>
 <td>浮层关闭事件</td>
 </tr>
-<tr>
-<td>drag</td>
-<td>拖拽</td>
-</tr>
-<tr>
-<td>drag-handle</td>
-<td>拖拽的把柄</td>
-</tr>
 </tbody>
 </table>
 
@@ -185,16 +175,15 @@
 <a id="示例" class="anchor" href="#%E7%A4%BA%E4%BE%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
 
 <ol>
-<li><a href="./example/dialog-ng-if.html">普通对话框</a></li>
-<li><a href="./example/dialog-modal.html">模态对话框</a></li>
-<li><a href="./example/dialog-dialog-buttons.html">带按钮的对话框</a></li>
-<li><a href="./example/dialog-dialog-statusbar.html">带状态栏的对话框</a></li>
-<li><a href="./example/dialog-dialog-title.html">无标题的对话框</a></li>
-<li><a href="./example/dialog-close.html">无关闭按钮的对话框</a></li>
-<li><a href="./example/dialog-for-align.html">带箭头的对话框</a></li>
-<li><a href="./example/dialog-fixed.html">fixed 定位的对话框</a></li>
-<li><a href="./example/dialog-duration.html">自动关闭的对话框</a></li>
-<li><a href="./example/dialog-drag.html">可拖拽的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-ng-if.html">普通对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-modal.html">模态对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-dialog-buttons.html">带按钮的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-dialog-statusbar.html">带状态栏的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-dialog-title.html">无标题的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-close.html">无关闭按钮的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-for-align.html">带箭头的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-fixed.html">fixed 定位的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-duration.html">自动关闭的对话框</a></li>
 </ol>
 
 <h2>
@@ -206,9 +195,9 @@
 <a id="示例-1" class="anchor" href="#%E7%A4%BA%E4%BE%8B-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
 
 <ol>
-<li><a href="./example/bubble.html">普通气泡</a></li>
-<li><a href="./example/bubble-for-align.html">自定义气泡方向</a></li>
-<li><a href="./example/bubble-close.html">不被关闭的气泡</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/bubble.html">普通气泡</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/bubble-for-align.html">自定义气泡方向</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/bubble-close.html">不被关闭的气泡</a></li>
 </ol>
 
 <h2>
@@ -220,7 +209,7 @@
 <a id="示例-2" class="anchor" href="#%E7%A4%BA%E4%BE%8B-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
 
 <ol>
-<li><a href="./example/popup.html">自定义浮层</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/popup.html">自定义浮层</a></li>
 </ol>
 
 <h2>
@@ -235,11 +224,11 @@
 <h2>
 <a id="许可" class="anchor" href="#%E8%AE%B8%E5%8F%AF" aria-hidden="true"><span class="octicon octicon-link"></span></a>许可</h2>
 
-<p>MIT</p>
+<p><a href="./LICENSE">MIT</a></p>
 
 <hr>
 
-<p><img src="./qr-alipay.png" alt="支付宝二维码"></p>
+<p><img src="http://aui.github.io/angular-popups/qr-alipay.png" alt="支付宝二维码"></p>
 
 <p>喜欢这个项目？捐助￥26元请我一杯咖啡 :-)</p>
 
