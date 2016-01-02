@@ -9,6 +9,7 @@
     font-family: Helvetica, arial, sans-serif;
     line-height: 1.428571429;
     color: #CD9C4F;
+    /*-webkit-backdrop-filter: saturate(180%) blur(20px);*/
 }
 .ui-popup-focus .ui-bubble {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
