@@ -115,6 +115,10 @@ var app = angular.module('app', ['angular-popups']);
 * Firefox
 * IE9+
 
+## 更新日志
+
+[CHANGELOG.md](./CHANGELOG.md)
+
 ## 许可
 
 [MIT](./LICENSE)
