@@ -4,6 +4,7 @@
 
 require('./css/ui-dialog.css');
 var angular = require('angular');
+var $ = angular.element;
 var directives = require('./directives');
 
 
@@ -22,7 +23,7 @@ var buttonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
 
 directives.popup('dialog', {
     template: '<div class="ui-popup" aria-labelledby="{{$dialogId}}-title" aria-describedby="{{$dialogId}}-content" ng-transclude></div>',
-    link: function(scope, elem, attrs, superheroCtrl) {
+    link: function(scope, elem, attrs) {
 
         var node = elem[0];
         var dialog = createElement(dialogTpl);
@@ -69,17 +70,17 @@ directives.popup('dialog', {
 
 
         if (!titleNode) {
-            headerNode.remove();
+            $(headerNode).remove();
         }
 
         if (!statusbarNode && !buttonsNode) {
-            footerNode.remove();
+            $(footerNode).remove();
         }
 
 
         if (closeNode) {
             closeNode.addEventListener('click', function() {
-                superheroCtrl.$close();
+                scope.$close();
             }, false);
         }
 

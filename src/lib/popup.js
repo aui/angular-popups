@@ -5,7 +5,6 @@
 
 /**
  * @param   {HTMLElement}   浮层元素（可选）
- * @param   {Boolean}       如果为 true，则 show 与 hide 方法不会操作元素的隐藏与显示
  */
 function Popup(node, _ng) {
 
@@ -73,8 +72,8 @@ Popup.prototype = {
         this.anchor = anchor;
 
 
-        node.classList.add(this.className);
-        node.classList.add(this.__name('show'));
+        addClass(node, this.className);
+        addClass(node, this.__name('show'));
         node.setAttribute('role', this.modal ? 'alertdialog' : 'dialog');
 
 
@@ -88,7 +87,7 @@ Popup.prototype = {
         // 模态浮层的遮罩
         if (this.modal) {
 
-            node.classList.add(this.__name('modal'));
+            addClass(node, this.__name('modal'));
 
             // 让焦点限制在浮层内
             document.addEventListener('focusin', this.focus, false);
@@ -126,8 +125,8 @@ Popup.prototype = {
                 this.returnValue = result;
             }
 
-            node.classList.remove(this.__name('show'));
-            node.classList.remove(this.__name('modal'));
+            removeClass(node, this.__name('show'));
+            removeClass(node, this.__name('modal'));
 
             if (!this.__ng) {
                 node.style.display = 'none';
@@ -162,7 +161,10 @@ Popup.prototype = {
         }
 
 
-        this.node.remove();
+        if (!this.__ng) {
+            removeNode(this.node);
+        }
+
 
 
         for (var i in this) {
@@ -213,8 +215,8 @@ Popup.prototype = {
         if (!node.contains(this.__getActive())) {
             var autofocus = node.querySelector('[autofocus]');
 
-            if (!this._autofocus && autofocus) {
-                this._autofocus = true;
+            if (!this.__autofocus && autofocus) {
+                this.__autofocus = true;
             } else {
                 autofocus = node;
             }
@@ -227,7 +229,7 @@ Popup.prototype = {
 
 
         Popup.current = this;
-        node.classList.add(this.__name('focus'));
+        addClass(node, this.__name('focus'));
 
         return this;
     },
@@ -239,13 +241,14 @@ Popup.prototype = {
         var activeElement = this.__activeElement;
         var now = this.__getActive();
         var isBlur = arguments[0];
+        var node = this.node;
 
-        if (isBlur !== false && this.node.contains(now)) {
+        if (isBlur !== false && node.contains(now)) {
             this.__focus(activeElement);
         }
 
-        this._autofocus = false;
-        this.node.classList.remove(this.__name('focus'));
+        this.__autofocus = false;
+        removeClass(node, this.__name('focus'));
 
         return this;
     },
@@ -309,8 +312,8 @@ Popup.prototype = {
 
 
         if (this.__anchorClass) {
-            node.classList.remove(this.__anchorClass);
-            node.classList.remove(this.__name('anchor'));
+            removeClass(node, this.__anchorClass);
+            removeClass(node, this.__name('anchor'));
         }
 
 
@@ -414,19 +417,16 @@ Popup.prototype = {
             // 添加 anchor 的 css
             className += align.join('-');
             that.__anchorClass = className;
-            node.classList.add(className);
-            node.classList.add(this.__name('anchor'));
+            addClass(node, className);
+            addClass(node, this.__name('anchor'));
         }
 
 
         css[name[align[0]]] = parseInt(temp[0][align[0]]);
         css[name[align[1]]] = parseInt(temp[1][align[1]]);
 
-
-        Object.keys(css).forEach(function(key) {
-            var value = css[key];
-            node.style[key] = value + 'px';
-        });
+        node.style.left = css.left + 'px';
+        node.style.top = css.top + 'px';
 
 
         // 获取元素或 Event 对象相对于页面的位置（不支持 iframe 内的元素）
@@ -477,6 +477,37 @@ function getDocumentScroll(name) {
     return window[type[name]];
 }
 
+
+// 删除节点
+function removeNode(elem) {
+    // elem.remove()
+    elem.parentNode.removeChild(elem);
+}
+
+
+function hasClass(elem, className) {
+    // elem.contains(className)
+    return elem.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+}
+
+
+// 添加类
+function addClass(elem, className) {
+    // elem.classList.add(className)
+    if (!hasClass(elem, className)) {
+        elem.className += ' ' + className;
+    }
+}
+
+
+// 删除类
+function removeClass(elem, className) {
+    // elem.classList.remove(className)
+    if (hasClass(elem, className)) {
+        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+        elem.className = elem.className.replace(reg, ' ');
+    }
+}
 
 
 module.exports = Popup;

@@ -9,6 +9,7 @@ var directives = angular.module('angular-popups', []);
 
 
 directives.popup = function(name, options) {
+    var temp = angular.element('<div class="ui-popups"></div>');
     return directives.directive(name, function() {
 
         var directive = {
@@ -40,25 +41,10 @@ directives.popup = function(name, options) {
                 'duration': '@'
 
             },
-            controller: ['$scope', '$window', function($scope, $window) {
-                this.$close = function() {
-                    $window.clearTimeout($scope.$$time);
-                    $scope.close();
-                    $scope.$apply();
-                };
-
-                this.$duration = function(duration) {
-                    $window.clearTimeout($scope.$$time);
-                    $scope.$$time = $window.setTimeout(function() {
-                        $scope.close();
-                        $scope.$apply();
-                    }, duration);
-                };
-
-            }],
-            link: function(scope, elem, attrs, superheroCtrl) {
+            link: function(scope, elem, attrs) {
 
                 var popup = new Popup(elem[0], true);
+                var temp = fix(elem[0]);
 
 
                 // 要映射的字段
@@ -69,7 +55,6 @@ directives.popup = function(name, options) {
                 // 要转换的数据类型
                 var type = {
                     'for': 'String@id',
-                    //'anchor': 'String@id',
                     'fixed': 'Boolean',
                     'modal': 'Boolean',
                     'align': 'String'
@@ -116,41 +101,45 @@ directives.popup = function(name, options) {
 
                 if (attrs.ngIf) scope.$watch('ngIf', toggle);
                 if (attrs.ngShow) scope.$watch('ngShow', toggle);
-                if (attrs.ngHide) scope.$watch('ngHide', toggle);
+                if (attrs.ngHide) scope.$watch('ngHide', function(value) {
+                    toggle(!value);
+                });
 
 
-                function toggle(v) {
+                function toggle(show) {
 
-                    if (typeof v === 'undefined') {
+                    if (typeof show === 'undefined') {
                         return;
                     }
 
-                    var value = true;
+                    if (show) {
+                        // 使用 setTimeout 等待 ng-show 在 UI 上生效
+                        setTimeout(function() {
+                            popup.show(popup.anchor);
 
-                    switch (attrs) {
-                        case 'ngIf':
-                            value = scope.ngIf;
-                            break;
-                        case 'ngShow':
-                            value = scope.ngShow;
-                            break;
-                        case 'ngHide':
-                            value = !scope.ngHide;
-                            break;
-                    }
-
-                    if (value) {
-                        popup.show(popup.anchor);
-
-                        if (attrs.duration) {
-                            superheroCtrl.$duration(Number(attrs.duration));
-                        }
-
+                            if (attrs.duration) {
+                                scope.$duration(Number(attrs.duration));
+                            }
+                        }, 0);
                     } else {
                         popup.close();
                     }
 
                 }
+
+
+                var timer;
+                scope.$close = function() {
+                    clearTimeout(timer);
+                    scope.close();
+                    scope.$apply();
+                };
+
+                scope.$duration = function(duration) {
+                    clearTimeout(timer);
+                    timer = setTimeout(scope.$close, duration);
+                };
+
 
 
                 // ESC 快捷键关闭浮层
@@ -169,7 +158,7 @@ directives.popup = function(name, options) {
                     }
 
                     if (keyCode === 27) {
-                        superheroCtrl.$close();
+                        scope.$close();
                     }
                 }
 
@@ -184,11 +173,11 @@ directives.popup = function(name, options) {
                 // 控制器销毁或者 ng-if="false" 都可能触发此
                 // scope.$on('$destroy', callback) >> 这种方式对 ngAnimate 支持不好
                 elem.one('$destroy', function() {
+                    toggle(false);
+                    popup.remove();
+                    temp.remove();
                     document.removeEventListener('keydown', esc);
-                    popup.close().remove();
                 });
-
-
 
             }
         };
@@ -200,5 +189,16 @@ directives.popup = function(name, options) {
         return directive;
     });
 };
+
+
+// AngularJS(v1.4.8) BUG：
+// 如果指令内部把 DOM 节点迁移到 document.body 下，
+// 则指令元素的 ng-if 为 false 的时候可能导致其他 popups 节点被 AngularJS 删除
+function fix(elem) {
+    var temp = document.createElement('popup');
+    document.body.appendChild(temp);
+    temp.appendChild(elem);
+    return angular.element(temp);
+}
 
 module.exports = directives;
