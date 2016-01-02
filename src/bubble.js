@@ -12,21 +12,24 @@ directives.popup('bubble', {
         '<div ng-transclude class="ui-bubble-content"></div>' +
         '</div>' +
         '</div>',
-    link: function(scope, elem, attrs, superheroCtrl) {
+    link: function(scope, elem, attrs) {
 
         function click(event) {
             if (!elem[0].contains(event.target)) {
-                superheroCtrl.$close();
+                scope.$close();
             }
         }
 
-        document.addEventListener('mousedown', click, false);
-        document.addEventListener('touchstart', click, false);
+        if (attrs.close) {
+            document.addEventListener('mousedown', click, false);
+            document.addEventListener('touchstart', click, false);
 
-        elem.on('$destroy', function() {
-            document.removeEventListener('mousedown', click);
-            document.removeEventListener('touchstart', click);
-        });
+            elem.on('$destroy', function() {
+                document.removeEventListener('mousedown', click);
+                document.removeEventListener('touchstart', click);
+            });
+        }
+
 
     }
 });
