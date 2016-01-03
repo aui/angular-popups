@@ -16,7 +16,7 @@ var dialogTpl =
     '</div>';
 
 var titleTpl = '<div class="ui-dialog-title" id="{{$dialogId}}-title" ng-transclude></div>';
-var closeTpl = '<button type="button" class="ui-dialog-close"><span aria-hidden="true">&times;</span></button>';
+var closeTpl = '<button class="ui-dialog-close" aria-label="Close" type="button"><span aria-hidden="true">&times;</span></button>';
 var contentTpl = '<div class="ui-dialog-content" id="{{$dialogId}}-content" ng-transclude></div>';
 var statusbarTpl = '<span class="ui-dialog-statusbar" ng-transclude></span>';
 var buttonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
