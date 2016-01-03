@@ -14,11 +14,19 @@ directives.popup('bubble', {
         '</div>',
     link: function(scope, elem) {
 
+        function click(event) {
+            if (!elem[0].contains(event.target)) {
+                scope.$close();
+            }
+        }
+
         scope.$onopen = function () {
+            document.addEventListener('click', click, false);
             elem[0].addEventListener('focusout', scope.$close, false);
         };
 
         scope.$onclose = function () {
+            document.removeEventListener('click', click);
             elem[0].removeEventListener('focusout', scope.$close);
         };
 
