@@ -6,7 +6,6 @@
     border-radius: 6px;
     outline: 0;
     background-clip: padding-box;
-    font-family: Helvetica, arial, sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
     text-align: left;
@@ -21,7 +20,6 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 .ui-popup-modal .ui-dialog {
-    /*box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);*/
     box-shadow: none;
 }
 .ui-dialog-header {
