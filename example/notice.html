@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="examples">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>example</title>
+
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../dist/angular-popups.js"></script>
+
+    <script>
+    angular.module('examples', ['angular-popups']);
+    </script>
+
+    <link rel="stylesheet" href="./css/show-source-code.css">
+</head>
+<body>
+<button ng-click="notice={open: true}">打开通知条</button>
+<notice ng-if="notice.open" duration="2000" close="notice.open=false">
+    hello world
+</notice>
+
+<script id="show-source-code" src="./js/show-source-code.js"></script>
+</body>
+</html>
