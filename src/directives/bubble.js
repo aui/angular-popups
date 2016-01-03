@@ -2,7 +2,7 @@
 
 'use strict';
 
-require('./css/ui-bubble.css');
+require('../css/ui-bubble.css');
 
 var directives = require('./directives');
 

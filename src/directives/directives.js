@@ -4,13 +4,13 @@
 
 var angular = require('angular');
 var $ = angular.element;
-var Popup = require('./lib/popup');
-var directives = angular.module('angular-popups', []);
+var Popup = require('../lib/popup');
+var ngModule = require('../ng-module');
 
 
 
-directives.popup = function(name, options) {
-    return directives.directive(name, function() {
+ngModule.popup = function(name, options) {
+    return ngModule.directive(name, function() {
 
         var directive = {
             template: options.template,
@@ -202,4 +202,4 @@ function fix(elem) {
     return $(temp);
 }
 
-module.exports = directives;
+module.exports = ngModule;
