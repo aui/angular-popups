@@ -66,7 +66,7 @@ Popup.prototype = {
 
         var node = this.node;
 
-        this.__activeElement = this.__getActive();
+        this.__activeElement = getActiveElement();
 
         this.open = true;
         this.anchor = anchor;
@@ -212,7 +212,7 @@ Popup.prototype = {
         }
 
         // 检查焦点是否在浮层里面
-        if (!node.contains(this.__getActive())) {
+        if (!node.contains(getActiveElement())) {
             var autofocus = node.querySelector('[autofocus]');
 
             if (!this.__autofocus && autofocus) {
@@ -239,7 +239,7 @@ Popup.prototype = {
     blur: function() {
 
         var activeElement = this.__activeElement;
-        var now = this.__getActive();
+        var now = getActiveElement();
         var isBlur = arguments[0];
         var node = this.node;
 
@@ -268,17 +268,6 @@ Popup.prototype = {
             if (this.autofocus && !/^iframe$/i.test(elem.nodeName)) {
                 elem.focus();
             }
-        } catch (e) {}
-    },
-
-
-    // 获取当前焦点的元素
-    __getActive: function() {
-        try { // try: ie8~9, iframe #26
-            var activeElement = document.activeElement;
-            var contentDocument = activeElement.contentDocument;
-            var elem = contentDocument && contentDocument.activeElement || activeElement;
-            return elem;
         } catch (e) {}
     },
 
@@ -520,6 +509,16 @@ function addEvent(elem, type, callback) {
 // 删除事件
 function removeEvent(elem, type, callback) {
     elem.removeEventListener(type, callback);
+}
+
+// 获取当前焦点的元素
+function getActiveElement() {
+    try { // try: ie8~9, iframe #26
+        var activeElement = document.activeElement;
+        var contentDocument = activeElement.contentDocument;
+        var elem = contentDocument && contentDocument.activeElement || activeElement;
+        return elem;
+    } catch (e) {}
 }
 
 
