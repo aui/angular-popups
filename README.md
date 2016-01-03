@@ -2,12 +2,13 @@
 
 基于 AngularJS 的浮层组件，由 [artDialog](https://github.com/aui/artDialog) 演进而来。
 
-1. 使用 AngularJS 自带的 `ng-if`、`ng-show`、`ng-hide` 控制浮层的显示与隐藏
+1. 使用 AngularJS 自带的 `ng-if`、`ng-show`、`ng-hide` 控制浮层的显示、销毁
 2. 支持 ARIA 规范、无障碍焦点管理、快捷键关闭
-3. 完全基于 HTML 标签，高可定制化
+3. 完全基于 HTML 标签，无需在控制器中配置
 4. 可以指定元素对齐或者页面居中显示
-5. 可以使用模态特性
-6. 不依赖 jQuery 等外部库
+5. 支持模态浮层
+6. 对移动端支持友好
+6. 轻量（7kb），不依赖 jQuery 等外部库
 
 演示站点：<https://aui.github.io/angular-popups/>
 

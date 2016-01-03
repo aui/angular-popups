@@ -12,7 +12,7 @@ directives.popup('bubble', {
         '<div ng-transclude class="ui-bubble-content"></div>' +
         '</div>' +
         '</div>',
-    link: function(scope, elem, attrs) {
+    link: function(scope, elem) {
 
         function click(event) {
             if (!elem[0].contains(event.target)) {
@@ -20,16 +20,13 @@ directives.popup('bubble', {
             }
         }
 
-        if (attrs.close) {
-            document.addEventListener('mousedown', click, false);
-            document.addEventListener('touchstart', click, false);
+        scope.$onopen = function () {
+            document.addEventListener('click', click, false);
+        };
 
-            elem.on('$destroy', function() {
-                document.removeEventListener('mousedown', click);
-                document.removeEventListener('touchstart', click);
-            });
-        }
-
+        scope.$onclose = function () {
+            document.removeEventListener('click', click);
+        };
 
     }
 });

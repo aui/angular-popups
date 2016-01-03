@@ -90,7 +90,7 @@ Popup.prototype = {
             addClass(node, this.__name('modal'));
 
             // 让焦点限制在浮层内
-            document.addEventListener('focusin', this.focus, false);
+            addEvent(document, 'focusin', this.focus);
         }
 
 
@@ -99,7 +99,7 @@ Popup.prototype = {
         }
 
 
-        window.addEventListener('resize', this.reset, false);
+        addEvent(window, 'resize', this.reset);
 
         this.reset().focus();
 
@@ -135,8 +135,8 @@ Popup.prototype = {
             this.open = false;
             this.blur(); // 恢复焦点，照顾键盘操作的用户
 
-            document.removeEventListener('focusin', this.focus);
-            window.removeEventListener('resize', this.reset);
+            removeEvent(document, 'focusin', this.focus);
+            removeEvent(window, 'resize', this.reset);
         }
 
         return this;
@@ -468,6 +468,7 @@ function getWindowSize(name) {
     return document.documentElement['client' + name];
 }
 
+
 // 获取页面滚动条位置
 function getDocumentScroll(name) {
     var type = {
@@ -510,6 +511,18 @@ function removeClass(elem, className) {
 }
 
 
+// 添加事件
+function addEvent(elem, type, callback) {
+    elem.addEventListener(type, callback, false);
+}
+
+
+// 删除事件
+function removeEvent(elem, type, callback) {
+    elem.removeEventListener(type, callback);
+}
+
+
 module.exports = Popup;
 
 
@@ -525,3 +538,4 @@ module.exports = Popup;
 
 // TODO showModal focus 优化
 // TODO zIndex 优化
+// 使用配置代替属性，删除 _ng 私有配置

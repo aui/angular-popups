@@ -3,13 +3,13 @@
 'use strict';
 
 var angular = require('angular');
+var $ = angular.element;
 var Popup = require('./lib/popup');
 var directives = angular.module('angular-popups', []);
 
 
 
 directives.popup = function(name, options) {
-    var temp = angular.element('<div class="ui-popups"></div>');
     return directives.directive(name, function() {
 
         var directive = {
@@ -28,7 +28,7 @@ directives.popup = function(name, options) {
                 // 吸附到指定 ID 元素
                 'for': '@',
 
-                // 对齐方式，配合 for
+                // 对齐方式，配合 `for` 才能使用
                 'align': '@',
 
                 // 是否固定定位（跟随滚动条）
@@ -43,9 +43,19 @@ directives.popup = function(name, options) {
             },
             link: function(scope, elem, attrs) {
 
-                var popup = new Popup(elem[0], true);
-                var temp = fix(elem[0]);
+                var timer;
 
+                scope.$close = function() {
+                    clearTimeout(timer);
+                    scope.close();
+                    scope.$apply();
+                };
+
+                scope.$onopen = scope.$onclose = function (){};
+
+
+                var popup = new Popup(elem[0], true);
+                var temp = fix(elem);
 
                 // 要映射的字段
                 var map = {
@@ -114,31 +124,22 @@ directives.popup = function(name, options) {
 
                     if (show) {
                         // 使用 setTimeout 等待 ng-show 在 UI 上生效
+                        elem.css('visibility', 'hidden');
                         setTimeout(function() {
+                            elem.css('visibility', 'visible');
                             popup.show(popup.anchor);
-
+                            scope.$onopen();
                             if (attrs.duration) {
-                                scope.$duration(Number(attrs.duration));
+                                clearTimeout(timer);
+                                timer = setTimeout(scope.$close, Number(attrs.duration));
                             }
                         }, 0);
                     } else {
                         popup.close();
+                        scope.$onclose();
                     }
 
                 }
-
-
-                var timer;
-                scope.$close = function() {
-                    clearTimeout(timer);
-                    scope.close();
-                    scope.$apply();
-                };
-
-                scope.$duration = function(duration) {
-                    clearTimeout(timer);
-                    timer = setTimeout(scope.$close, duration);
-                };
 
 
 
@@ -163,7 +164,7 @@ directives.popup = function(name, options) {
                 }
 
 
-                document.addEventListener('keydown', esc, false);
+                $(document).on('keydown', esc);
 
 
                 (options.link || function() {}).apply(this, arguments);
@@ -176,7 +177,7 @@ directives.popup = function(name, options) {
                     toggle(false);
                     popup.remove();
                     temp.remove();
-                    document.removeEventListener('keydown', esc);
+                    $(document).off('keydown', esc);
                 });
 
             }
@@ -197,8 +198,8 @@ directives.popup = function(name, options) {
 function fix(elem) {
     var temp = document.createElement('popup');
     document.body.appendChild(temp);
-    temp.appendChild(elem);
-    return angular.element(temp);
+    temp.appendChild(elem[0]);
+    return $(temp);
 }
 
 module.exports = directives;
