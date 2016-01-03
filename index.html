@@ -22,12 +22,12 @@
       <h1>
 <a id="angular-popups" class="anchor" href="#angular-popups" aria-hidden="true"><span class="octicon octicon-link"></span></a>angular-popups</h1>
 
-<p>基于 AngularJS 的浮层组件，由 <a href="https://github.com/aui/artDialog">artDialog</a> 演进而来。</p>
+<p>基于 AngularJS 的浮层组件，由 <a href="https://github.com/aui/artDialog">artDialog</a> 演进而来。angular-popups 是一个严格遵循 AngularJS 架构与 web 标准的组件：</p>
 
 <ol>
 <li>使用 AngularJS 自带的 <code>ng-if</code>、<code>ng-show</code>、<code>ng-hide</code> 控制浮层的显示、销毁</li>
 <li>支持 ARIA 规范、无障碍焦点管理、快捷键关闭</li>
-<li>完全基于 HTML 标签，无需在控制器中配置</li>
+<li>完全基于 HTML 标签（指令），无需在控制器中进行配置</li>
 <li>可以指定元素对齐或者页面居中显示</li>
 <li>支持模态浮层</li>
 <li>对移动端支持友好</li>
@@ -71,19 +71,17 @@
 <h2>
 <a id="指令" class="anchor" href="#%E6%8C%87%E4%BB%A4" aria-hidden="true"><span class="octicon octicon-link"></span></a>指令</h2>
 
-<p>内置三个浮层指令：</p>
+<p>包含如下浮层指令：</p>
 
 <ul>
-<li>
-<code>dialog</code> 对话框指令</li>
-<li>
-<code>bubble</code> 气泡指令</li>
-<li>
-<code>popup</code> 透明浮层指令</li>
+<li><a href="#dialog"><code>dialog</code> 对话框指令</a></li>
+<li><a href="#bubble"><code>bubble</code> 气泡指令</a></li>
+<li><a href="#notice"><code>notice</code> 通知消息指令</a></li>
+<li><a href="#popup"><code>popup</code> 透明浮层指令</a></li>
 </ul>
 
-<h2>
-<a id="浮层通用参数" class="anchor" href="#%E6%B5%AE%E5%B1%82%E9%80%9A%E7%94%A8%E5%8F%82%E6%95%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>浮层通用参数</h2>
+<h3>
+<a id="浮层通用参数" class="anchor" href="#%E6%B5%AE%E5%B1%82%E9%80%9A%E7%94%A8%E5%8F%82%E6%95%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>浮层通用参数</h3>
 
 <table>
 <thead>
@@ -175,6 +173,13 @@
 <h3>
 <a id="示例" class="anchor" href="#%E7%A4%BA%E4%BE%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
 
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">dialog</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>dialog.open=false<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-title</span>&gt;消息&lt;/<span class="pl-ent">div</span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">dialog-content</span>&gt;hello world&lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">dialog</span>&gt;</pre></div>
+
+<p>在线演示：</p>
+
 <ol>
 <li><a href="https://aui.github.io/angular-popups/example/dialog-ng-if.html">普通对话框</a></li>
 <li><a href="https://aui.github.io/angular-popups/example/dialog-modal.html">模态对话框</a></li>
@@ -190,10 +195,17 @@
 <h2>
 <a id="bubble" class="anchor" href="#bubble" aria-hidden="true"><span class="octicon octicon-link"></span></a>bubble</h2>
 
-<p>气泡浮层</p>
+<p>气泡浮层指令</p>
 
 <h3>
 <a id="示例-1" class="anchor" href="#%E7%A4%BA%E4%BE%8B-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">button</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>btn<span class="pl-pds">"</span></span> <span class="pl-e">ng-click</span>=<span class="pl-s"><span class="pl-pds">"</span>bubble.open = true<span class="pl-pds">"</span></span>&gt;打开气泡&lt;/<span class="pl-ent">button</span>&gt;
+&lt;<span class="pl-ent">bubble</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>bubble.open<span class="pl-pds">"</span></span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>btn<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>bubble.open=false<span class="pl-pds">"</span></span>&gt;
+    hello world
+&lt;/<span class="pl-ent">bubble</span>&gt;</pre></div>
+
+<p>在线演示：</p>
 
 <ol>
 <li><a href="https://aui.github.io/angular-popups/example/bubble.html">普通气泡</a></li>
@@ -202,15 +214,88 @@
 </ol>
 
 <h2>
-<a id="popup" class="anchor" href="#popup" aria-hidden="true"><span class="octicon octicon-link"></span></a>popup</h2>
+<a id="notice" class="anchor" href="#notice" aria-hidden="true"><span class="octicon octicon-link"></span></a>notice</h2>
 
-<p>透明浮层。通常用来定义自定义的浮层</p>
+<p>通知消息指令</p>
 
 <h3>
 <a id="示例-2" class="anchor" href="#%E7%A4%BA%E4%BE%8B-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
 
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">notice</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>notice.open<span class="pl-pds">"</span></span> <span class="pl-e">duration</span>=<span class="pl-s"><span class="pl-pds">"</span>2000<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>notice.open=false<span class="pl-pds">"</span></span>&gt;
+    hello world
+&lt;/<span class="pl-ent">notice</span>&gt;</pre></div>
+
+<p>在线演示：</p>
+
+<ol>
+<li><a href="https://aui.github.io/angular-popups/example/notice.html">普通通知浮层</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/notice-modal.html">模态通知浮层</a></li>
+</ol>
+
+<h2>
+<a id="popup" class="anchor" href="#popup" aria-hidden="true"><span class="octicon octicon-link"></span></a>popup</h2>
+
+<p>透明浮层指令</p>
+
+<blockquote>
+<p>无任何样式，可以用来制作自定义形状的浮层</p>
+</blockquote>
+
+<h3>
+<a id="示例-3" class="anchor" href="#%E7%A4%BA%E4%BE%8B-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">popup</span> <span class="pl-e">ng-if</span>=<span class="pl-s"><span class="pl-pds">"</span>popup.open<span class="pl-pds">"</span></span> <span class="pl-e">close</span>=<span class="pl-s"><span class="pl-pds">"</span>popup.open=false<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>mod-popup-example<span class="pl-pds">"</span></span>&gt;hello world&lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">popup</span>&gt;</pre></div>
+
+<p>在线演示：</p>
+
 <ol>
 <li><a href="https://aui.github.io/angular-popups/example/popup.html">自定义浮层</a></li>
+</ol>
+
+<h2>
+<a id="服务" class="anchor" href="#%E6%9C%8D%E5%8A%A1" aria-hidden="true"><span class="octicon octicon-link"></span></a>服务</h2>
+
+<p>若想在 js 代码中调用浮层相关控件，可以使用 <code>Popup</code> 服务。</p>
+
+<h3>
+<a id="方法" class="anchor" href="#%E6%96%B9%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>方法</h3>
+
+<ul>
+<li>Popup.alert(content, ok)</li>
+<li>Popup.confirm(content, ok, cancel)</li>
+<li>Popup.notice(content, duration, ok);</li>
+</ul>
+
+<blockquote>
+<p><code>Popup</code> 服务仅支持文本消息，HTML 内容请使用指令</p>
+</blockquote>
+
+<h3>
+<a id="配置" class="anchor" href="#%E9%85%8D%E7%BD%AE" aria-hidden="true"><span class="octicon octicon-link"></span></a>配置</h3>
+
+<p>配置默认的标题以及按钮文案</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">config</span>(<span class="pl-k">function</span> (<span class="pl-smi">PopupProvider</span>) {
+    <span class="pl-smi">PopupProvider</span>.<span class="pl-c1">title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>提示<span class="pl-pds">'</span></span>;
+    <span class="pl-smi">PopupProvider</span>.<span class="pl-smi">okValue</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>确定<span class="pl-pds">'</span></span>;
+    <span class="pl-smi">PopupProvider</span>.<span class="pl-smi">cancelValue</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>取消<span class="pl-pds">'</span></span>;
+});</pre></div>
+
+<h3>
+<a id="示例-4" class="anchor" href="#%E7%A4%BA%E4%BE%8B-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">controller</span>(<span class="pl-s"><span class="pl-pds">'</span>testCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">$scope</span>, <span class="pl-smi">Popup</span>) {
+    <span class="pl-smi">Popup</span>.<span class="pl-c1">alert</span>(<span class="pl-s"><span class="pl-pds">'</span>hello world<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>ok<span class="pl-pds">'</span></span>);
+    });
+});</pre></div>
+
+<p>在线演示：</p>
+
+<ol>
+<li><a href="https://aui.github.io/angular-popups/example/services.html">在控制器中使用 <code>Popup</code> 服务</a></li>
 </ol>
 
 <h2>
@@ -236,7 +321,7 @@
 
 <p><img src="http://aui.github.io/angular-popups/qr-alipay.png" alt="支付宝二维码"></p>
 
-<p>喜欢这个项目？捐助￥26元请我一杯咖啡 :-)</p>
+<p>喜欢这个项目？捐助一杯咖啡支持下（￥28）</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/aui/angular-popups">Angular-popups</a> is maintained by <a href="https://github.com/aui">aui</a>.</span>
