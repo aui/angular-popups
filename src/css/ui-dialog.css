@@ -12,11 +12,17 @@
     text-align: left;
     color: #333;
 }
+@media (max-width: 768px) {
+    .ui-dialog {
+        width: 90vw;
+    }
+}
 .ui-popup-focus .ui-dialog {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 .ui-popup-modal .ui-dialog {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);
+    /*box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);*/
+    box-shadow: none;
 }
 .ui-dialog-header {
     white-space: nowrap;
