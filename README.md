@@ -1,10 +1,10 @@
 # angular-popups
 
-基于 AngularJS 的浮层组件，由 [artDialog](https://github.com/aui/artDialog) 演进而来。
+基于 AngularJS 的浮层组件，由 [artDialog](https://github.com/aui/artDialog) 演进而来。angular-popups 是一个严格遵循 AngularJS 架构与 web 标准的组件：
 
 1. 使用 AngularJS 自带的 `ng-if`、`ng-show`、`ng-hide` 控制浮层的显示、销毁
 2. 支持 ARIA 规范、无障碍焦点管理、快捷键关闭
-3. 完全基于 HTML 标签，无需在控制器中配置
+3. 完全基于 HTML 标签（指令），无需在控制器中进行配置
 4. 可以指定元素对齐或者页面居中显示
 5. 支持模态浮层
 6. 对移动端支持友好
@@ -45,13 +45,14 @@ var app = angular.module('app', ['angular-popups']);
 
 ## 指令
 
-内置三个浮层指令：
+包含如下浮层指令：
 
-* `dialog` 对话框指令
-* `bubble` 气泡指令
-* `popup` 透明浮层指令
+* [`dialog` 对话框指令](#dialog)
+* [`bubble` 气泡指令](#bubble)
+* [`notice` 通知消息指令](#notice)
+* [`popup` 透明浮层指令](#popup)
 
-## 浮层通用参数
+### 浮层通用参数
 
 | 名称          | 说明                                    |
 | ----------- | ---------------------------------------- |
@@ -82,6 +83,15 @@ var app = angular.module('app', ['angular-popups']);
 
 ### 示例
 
+```html
+<dialog ng-if="dialog.open" close="dialog.open=false">
+    <div dialog-title>消息</div>
+    <div dialog-content>hello world</div>
+</dialog>
+```
+
+在线演示：
+
 1. [普通对话框](https://aui.github.io/angular-popups/example/dialog-ng-if.html)
 2. [模态对话框](https://aui.github.io/angular-popups/example/dialog-modal.html)
 3. [带按钮的对话框](https://aui.github.io/angular-popups/example/dialog-dialog-buttons.html)
@@ -94,21 +104,95 @@ var app = angular.module('app', ['angular-popups']);
 
 ## bubble
 
-气泡浮层
+气泡浮层指令
 
 ### 示例
+
+```html
+<button id="btn" ng-click="bubble.open = true">打开气泡</button>
+<bubble ng-if="bubble.open" for="btn" close="bubble.open=false">
+    hello world
+</bubble>
+```
+
+在线演示：
 
 1. [普通气泡](https://aui.github.io/angular-popups/example/bubble.html)
 2. [自定义气泡方向](https://aui.github.io/angular-popups/example/bubble-for-align.html)
 3. [不被关闭的气泡](https://aui.github.io/angular-popups/example/bubble-close.html)
 
-## popup
+## notice
 
-透明浮层。通常用来定义自定义的浮层
+通知消息指令
 
 ### 示例
 
+```html
+<notice ng-if="notice.open" duration="2000" close="notice.open=false">
+    hello world
+</notice>
+```
+
+在线演示：
+
+1. [普通通知浮层](https://aui.github.io/angular-popups/example/notice.html)
+2. [模态通知浮层](https://aui.github.io/angular-popups/example/notice-modal.html)
+
+## popup
+
+透明浮层指令
+
+> 无任何样式，可以用来制作自定义形状的浮层
+
+### 示例
+
+```html
+<popup ng-if="popup.open" close="popup.open=false">
+    <div class="mod-popup-example">hello world</div>
+</popup>
+```
+
+在线演示：
+
 1. [自定义浮层](https://aui.github.io/angular-popups/example/popup.html)
+
+## 服务
+
+若想在 js 代码中调用浮层相关控件，可以使用 `Popup` 服务。
+
+### 方法
+
+* Popup.alert(content, ok)
+* Popup.confirm(content, ok, cancel)
+* Popup.notice(content, duration, ok);
+
+> `Popup` 服务仅支持文本消息，HTML 内容请使用指令
+
+### 配置
+
+配置默认的标题以及按钮文案
+
+```js
+app.config(function (PopupProvider) {
+    PopupProvider.title = '提示';
+    PopupProvider.okValue = '确定';
+    PopupProvider.cancelValue = '取消';
+});
+```
+
+### 示例
+
+```js
+app.controller('testCtrl', function($scope, Popup) {
+    Popup.alert('hello world', function () {
+        console.log('ok');
+    });
+});
+```
+
+在线演示：
+
+1. [在控制器中使用 `Popup` 服务](https://aui.github.io/angular-popups/example/services.html)
 
 ## 兼容性
 
@@ -128,4 +212,4 @@ var app = angular.module('app', ['angular-popups']);
 
 ![支付宝二维码](http://aui.github.io/angular-popups/qr-alipay.png)
 
-喜欢这个项目？捐助￥26元请我一杯咖啡 :-)
+喜欢这个项目？捐助一杯咖啡支持下（￥28）

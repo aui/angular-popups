@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="examples">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>example</title>
+
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../dist/angular-popups.js"></script>
+
+    <script>
+    var app = angular.module('examples', ['angular-popups']);
+    </script>
+
+    <link rel="stylesheet" href="./css/show-source-code.css">
+</head>
+<body>
+<div ng-controller="testCtrl">
+    <button ng-click="openAlert()">Popup.alert()</button>
+    <button ng-click="openConfirm()">Popup.confirm()</button>
+    <button ng-click="openNotice()">Popup.notice()</button>
+</div>
+
+<script>
+app.config(function (PopupProvider) {
+    PopupProvider.title = '提示';
+    PopupProvider.okValue = '确定';
+    PopupProvider.cancelValue = '取消';
+});
+
+app.controller('testCtrl', function($scope, Popup) {
+    $scope.openAlert = function() {
+        Popup.alert('hello world', function () {
+            console.log('ok');
+        });
+    };
+
+    $scope.openConfirm = function() {
+        Popup.confirm('hello world', function () {
+            console.log('ok');
+        }, function () {
+            console.log('cancel');
+        });
+    };
+
+    $scope.openNotice = function() {
+        Popup.notice('hello world', 3000, function () {
+            console.log('ok')
+        });
+    }
+});
+</script>
+<script id="show-source-code" src="./js/show-source-code.js"></script>
+</body>
+</html>

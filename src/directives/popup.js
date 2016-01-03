@@ -2,7 +2,7 @@
 
 'use strict';
 
-require('./css/ui-popup.css');
+require('../css/ui-popup.css');
 
 var directives = require('./directives');
 

@@ -1,4 +1,4 @@
-    script[type='text/template'] {
+    script[type='text/source-code'] {
         display: block;
         font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         font-size: 14px;
@@ -11,6 +11,6 @@
         opacity: .5;
         transition: opacity .15s ease-in-out;
     }
-    /*script[type='text/template']:hover {
+    /*script[type='text/source-code']:hover {
         opacity: 1;
     }*/
