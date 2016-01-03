@@ -14,7 +14,7 @@
 
 ## 使用
 
-支持使用 script 标签或者 webpack、rquirejs、seajs 调用：
+支持使用 script 标签或者 webpack、requirejs、seajs 调用：
 
 ### script
 

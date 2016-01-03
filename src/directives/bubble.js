@@ -22,10 +22,12 @@ directives.popup('bubble', {
 
         scope.$onopen = function () {
             document.addEventListener('click', click, false);
+            elem[0].addEventListener('focusout', scope.$close, false);
         };
 
         scope.$onclose = function () {
             document.removeEventListener('click', click);
+            elem[0].removeEventListener('focusout', scope.$close);
         };
 
     }
