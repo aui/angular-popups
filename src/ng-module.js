@@ -1,5 +1,1 @@
-/* global require,module */
-
-'use strict';
-var angular = require('angular');
-module.exports = angular.module('angular-popups', []);
+module.exports = require('angular').module('angular-popups', []);
