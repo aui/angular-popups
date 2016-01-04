@@ -6,53 +6,63 @@
 /**
  * @param   {HTMLElement}   浮层元素（可选）
  */
-function Popup(node, _ng) {
+function Popup(options) {
 
-    this.destroyed = false;
-    this.__ng = _ng;
+    // 合并默认配置
+    this.options = Object.create(Popup.defaults);
+    Object.keys(options || {}).forEach(function (key) {
+        var value = options[key];
+        if (typeof value !== 'undefined') {
+            this.options[key] = value;
+        }
+    }, this);
 
-    node = node || document.createElement('div');
+
+    var node = this.options.node || document.createElement('div');
     node.style.position = 'absolute';
     node.setAttribute('tabindex', '-1');
     document.body.appendChild(node);
 
-
-    if (!this.__ng) {
-        node.style.display = 'none';
-    }
-
+    this.options.hideElement(node);
     this.node = node;
+    this.destroyed = false;
 }
 
+
+Popup.defaults = {
+    /** 浮层 DOM 素节点 */
+    node: null,
+
+    /** 是否开启固定定位 */
+    fixed: false,
+
+    /** 是否自动聚焦 */
+    autofocus: true,
+
+    /** 对齐方式 */
+    align: 'bottom left',
+
+    /** CSS 类名 */
+    className: 'ui-popup',
+
+    showElement: showElement,
+    hideElement: hideElement,
+    removeElement: removeElement
+};
 
 
 Popup.prototype = {
 
     constructor: Popup,
 
-    /** 浮层 DOM 素节点[*] */
-    node: null,
-
-    /** 是否开启固定定位[*] */
-    fixed: false,
-
-    /** 判断是否删除[*] */
+    /** 判断是否删除[只读] */
     destroyed: true,
 
-    /** 判断是否显示 */
+    /** 判断是否显示[只读] */
     open: false,
 
     /** close 返回值 */
     returnValue: '',
-
-    /** 是否自动聚焦 */
-    autofocus: true,
-
-    /** 对齐方式[*] */
-    align: 'bottom left',
-
-    /** CSS 类名 */
-    className: 'ui-popup',
 
     /**
      * 显示浮层
@@ -72,7 +82,7 @@ Popup.prototype = {
         this.anchor = anchor;
 
 
-        addClass(node, this.className);
+        addClass(node, this.options.className);
         addClass(node, this.__name('show'));
         node.setAttribute('role', this.modal ? 'alertdialog' : 'dialog');
 
@@ -94,9 +104,7 @@ Popup.prototype = {
         }
 
 
-        if (!this.__ng) {
-            node.style.display = 'block';
-        }
+        this.options.showElement(node);
 
 
         addEvent(window, 'resize', this.reset);
@@ -128,9 +136,7 @@ Popup.prototype = {
             removeClass(node, this.__name('show'));
             removeClass(node, this.__name('modal'));
 
-            if (!this.__ng) {
-                node.style.display = 'none';
-            }
+            this.options.hideElement(node);
 
             this.open = false;
             this.blur(); // 恢复焦点，照顾键盘操作的用户
@@ -161,10 +167,7 @@ Popup.prototype = {
         }
 
 
-        if (!this.__ng) {
-            removeNode(this.node);
-        }
-
+        this.options.removeElement(this.node);
 
 
         for (var i in this) {
@@ -188,7 +191,7 @@ Popup.prototype = {
             anchor = this.anchor = document.querySelector(anchor);
         }
 
-        this.node.style.position = this.fixed ? 'fixed' : 'absolute';
+        this.node.style.position = this.options.fixed ? 'fixed' : 'absolute';
 
         if (anchor) {
             this.__anchor(anchor);
@@ -255,7 +258,7 @@ Popup.prototype = {
 
 
     __name: function(name) {
-        return this.className + '-' + name;
+        return this.options.className + '-' + name;
     },
 
 
@@ -265,7 +268,7 @@ Popup.prototype = {
         // 防止 IE 不可见元素报错
         try {
             // ie11 bug: iframe 页面点击会跳到顶部
-            if (this.autofocus && !/^iframe$/i.test(elem.nodeName)) {
+            if (this.options.autofocus && !/^iframe$/i.test(elem.nodeName)) {
                 elem.focus();
             }
         } catch (e) {}
@@ -276,7 +279,7 @@ Popup.prototype = {
     __center: function() {
 
         var node = this.node;
-        var fixed = this.fixed;
+        var fixed = this.options.fixed;
         var dl = fixed ? 0 : getDocumentScroll('Left');
         var dt = fixed ? 0 : getDocumentScroll('Top');
         var ww = getWindowSize('Width');
@@ -296,7 +299,7 @@ Popup.prototype = {
     // 指定位置 @param    {HTMLElement, Event}  anchor
     __anchor: function(anchor) {
 
-        var elem = anchor.parentNode && anchor;
+        var isElem = anchor.parentNode && anchor;
         var node = this.node;
 
 
@@ -307,12 +310,13 @@ Popup.prototype = {
 
 
         // 隐藏元素不可用
-        if (elem && elem.offsetLeft * elem.offsetTop < 0) {
+        if (isElem && anchor.offsetLeft * anchor.offsetTop < 0) {
             return this.__center();
         }
 
         var that = this;
-        var fixed = this.fixed;
+        var options = this.options;
+        var fixed = options.fixed;
 
         var winWidth = getWindowSize('Width');
         var winHeight = getWindowSize('Height');
@@ -322,8 +326,8 @@ Popup.prototype = {
 
         var popupWidth = node.offsetWidth;
         var popupHeight = node.offsetHeight;
-        var width = elem.offsetWidth || 0;
-        var height = elem.offsetHeight || 0;
+        var width = anchor.offsetWidth || 0;
+        var height = anchor.offsetHeight || 0;
         var offset = getOffset();
         var x = offset.left;
         var y = offset.top;
@@ -338,7 +342,7 @@ Popup.prototype = {
 
 
         var css = {};
-        var align = this.align.split(' ');
+        var align = options.align.split(' ');
         var className = this.__name('');
         var reverse = {
             top: 'bottom',
@@ -402,7 +406,7 @@ Popup.prototype = {
         }
 
 
-        if (elem) {
+        if (isElem) {
             // 添加 anchor 的 css
             className += align.join('-');
             that.__anchorClass = className;
@@ -420,11 +424,11 @@ Popup.prototype = {
 
         // 获取元素或 Event 对象相对于页面的位置（不支持 iframe 内的元素）
         function getOffset() {
-            if (elem) {
+            if (isElem) {
 
                 var win = window;
                 var docElem = document.documentElement;
-                var box = elem.getBoundingClientRect();
+                var box = anchor.getBoundingClientRect();
 
                 return {
                     top: box.top + win.pageYOffset - docElem.clientTop,
@@ -451,7 +455,6 @@ Popup.zIndex = 1024;
 Popup.current = null;
 
 
-
 // 获取窗口大小
 function getWindowSize(name) {
     return document.documentElement['client' + name];
@@ -469,12 +472,25 @@ function getDocumentScroll(name) {
 
 
 // 删除节点
-function removeNode(elem) {
+function removeElement(elem) {
     // elem.remove()
     elem.parentNode.removeChild(elem);
 }
 
 
+// 显示节点
+function showElement(elem) {
+    elem.style.display = 'block';
+}
+
+
+// 隐藏节点
+function hideElement(elem) {
+    elem.style.display = 'none';
+}
+
+
+// 判断是否包含制定类名
 function hasClass(elem, className) {
     // elem.contains(className)
     return elem.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
@@ -511,6 +527,7 @@ function removeEvent(elem, type, callback) {
     elem.removeEventListener(type, callback);
 }
 
+
 // 获取当前焦点的元素
 function getActiveElement() {
     try { // try: ie8~9, iframe #26
@@ -525,7 +542,7 @@ function getActiveElement() {
 module.exports = Popup;
 
 
-// 更新记录
+// 更新记录：
 // 取消对 iframe 支持
 // follow > anchor
 // fixed 支持多次设置
@@ -534,7 +551,8 @@ module.exports = Popup;
 // 修复 resize 可能被重复监听的 BUG
 // 移除 jQuery，只支持 IE9+
 // 移除事件系统
+// 使用配置项代替属性
 
 // TODO showModal focus 优化
 // TODO zIndex 优化
-// 使用配置代替属性，删除 _ng 私有配置
+// __anchor 函数优化
