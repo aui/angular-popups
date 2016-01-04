@@ -47,6 +47,7 @@
     background: transparent;
     border: 0;
     -webkit-appearance: none;
+    -webkit-tap-highlight-color:rgba(255,255,255,0);
 }
 .ui-dialog-close:hover,
 .ui-dialog-close:focus {
@@ -55,9 +56,6 @@
     cursor: pointer;
     outline: 0;
     opacity: 0.5;
-}
-.ui-dialog-close:active {
-    -webkit-tap-highlight-color:rgba(255,255,255,0);
 }
 .ui-dialog-title {
     margin: 0;
