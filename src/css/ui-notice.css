@@ -1,5 +1,5 @@
 @import url('./ui-popup.css');
-.ui-notice-content {
+.ui-notice {
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, 9);
     border-radius: 5px;

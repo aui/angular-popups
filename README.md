@@ -5,7 +5,7 @@
 1. 使用 AngularJS 自带的 `ng-if`、`ng-show`、`ng-hide` 控制浮层的显示、销毁
 2. 支持 ARIA 规范、无障碍焦点管理、快捷键关闭
 3. 完全基于 HTML 标签（指令），无需在控制器中进行配置
-4. 可以指定元素对齐或者页面居中显示
+4. 可以指定元素或鼠标事件对象（`$event`）对齐
 5. 支持模态浮层
 6. 对移动端支持友好
 6. 轻量（7kb），不依赖 jQuery 等外部库
@@ -65,6 +65,8 @@ var app = angular.module('app', ['angular-popups']);
 | modal       | 模态浮层                                   |
 | duration    | 自动关闭的时间（单位毫秒）                    |
 | close       | 浮层关闭事件                                |
+
+> `ng-if`、`ng-show` 如果传入的是 `$event`，则浮层会定位到事件触发位置
 
 ## dialog
 
@@ -155,6 +157,7 @@ var app = angular.module('app', ['angular-popups']);
 在线演示：
 
 1. [自定义浮层](https://aui.github.io/angular-popups/example/popup.html)
+2. [创建右键菜单](https://aui.github.io/angular-popups/example/popup-contextmenu.html)
 
 ## 服务
 

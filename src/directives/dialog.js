@@ -21,9 +21,9 @@ var contentTpl = '<div class="ui-dialog-content" id="{{$dialogId}}-content" ng-t
 var statusbarTpl = '<span class="ui-dialog-statusbar" ng-transclude></span>';
 var buttonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
 
-directives.popup('dialog', {
+directives.createPopup('dialog', {
     template: '<div class="ui-popup" aria-labelledby="{{$dialogId}}-title" aria-describedby="{{$dialogId}}-content" ng-transclude></div>',
-    link: function(scope, elem, attrs) {
+    link: function(scope, elem, attrs, controller) {
 
         var node = elem[0];
         var dialog = createElement(dialogTpl);
@@ -37,12 +37,12 @@ directives.popup('dialog', {
         }
 
         var childDirective = function(name) {
-            var prefix = 'dialog';
-            var e = prefix + '-' + name;
-            var e2 = prefix + '\\:' + name;
+            var directiveName = 'dialog';
+            var e = directiveName + '-' + name;
+            var e2 = directiveName + '\\:' + name;
             var a = '[' + e + ']';
             var a2 = '[' + e2 + ']';
-            var c = '.ui-' + prefix + '-' + name;
+            var c = '.ui-dialog' + '-' + name;
 
             return node.querySelector([e, e2, a, a2, c].join(','));
         };
@@ -79,9 +79,7 @@ directives.popup('dialog', {
 
 
         if (closeNode) {
-            closeNode.addEventListener('click', function() {
-                scope.$close();
-            }, false);
+            closeNode.addEventListener('click', controller.close, false);
         }
 
 
@@ -121,12 +119,10 @@ function childDirective(subName, subOptions) {
             require: '^dialog',
             restrict: 'AE',
             transclude: true,
-            controller: ['$scope', function($scope) {
-                $scope.$dialogId = 'ui-dialog' + $scope.$parent.$id;
-                $scope.$close = function() {
-                    $scope.$parent.close();
-                };
-            }],
+            link: function (scope, elem, attrs, controller) {
+                scope.$dialogId = 'ui-dialog' + scope.$parent.$id;
+                scope.$close = controller.close;
+            },
             replace: true
         }, subOptions);
     });

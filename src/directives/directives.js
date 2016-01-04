@@ -6,10 +6,10 @@ var angular = require('angular');
 var $ = angular.element;
 var Popup = require('../lib/popup');
 var ngModule = require('../ng-module');
+var noop = function(){};
 
 
-
-ngModule.popup = function(name, options) {
+ngModule.createPopup = function(name, options) {
     return ngModule.directive(name, function() {
 
         var directive = {
@@ -41,85 +41,67 @@ ngModule.popup = function(name, options) {
                 'duration': '@'
 
             },
-            link: function(scope, elem, attrs) {
-
+            controller: ['$scope', function($scope) {
                 var timer;
+                var that = this;
+                var close = $scope.close;
 
-                scope.$close = function() {
+                this.id = $scope.$id;
+
+                $scope.close = function() {
                     clearTimeout(timer);
-                    scope.close();
-                    scope.$apply();
+                    close();
                 };
 
-                scope.$onopen = scope.$onclose = function (){};
+                this.close = function(isUiEvent) {
+                    $scope.close();
+                    if (isUiEvent) {
+                        $scope.$apply();
+                    }
+                };
 
+                this.setDuration = function(duration) {
+                    clearTimeout(timer);
+                    timer = setTimeout(function() {
+                        that.close(true);
+                    }, duration);
+                };
 
-                var popup = new Popup(elem[0], true);
+                this.onopen = this.onclose = function() {};
+
+            }],
+            link: function(scope, elem, attrs, controller) {
+
+                var popup = new Popup({
+                    node: elem[0],
+                    fixed: attrToBoolean(attrs.fixed),
+                    align: attrs.align,
+                    showElement: noop,
+                    hideElement: noop,
+                    removeElement: noop
+                });
+
                 var temp = fix(elem);
 
-                // 要映射的字段
-                var map = {
-                    'for': 'anchor'
-                };
-
-                // 要转换的数据类型
-                var type = {
-                    'for': 'String@id',
-                    'fixed': 'Boolean',
-                    'modal': 'Boolean',
-                    'align': 'String'
-                };
-
-
-
-                var parse = {
-
-                    'String@id': function(value) {
-                        return value ? document.getElementById(value) : null;
-                    },
-
-                    'Boolean': function(value) {
-                        return typeof value === 'string';
-                    }
-                };
-
-
-                // 设置属性
-
-                Object.keys(type).forEach(function(key) {
-                    var item = type[key];
-                    var value = attrs[key];
-                    var name = key;
-
-                    if (typeof value === 'undefined') {
-                        return;
-                    }
-
-                    if (parse[item]) {
-                        value = parse[item](value);
-                    }
-
-                    if (map[key]) {
-                        name = map[key];
-                    }
-
-                    popup[name] = value;
-                });
-
-
-                // 通过模型控制对话框显示与隐藏
-
-                if (attrs.ngIf) scope.$watch('ngIf', toggle);
-                if (attrs.ngShow) scope.$watch('ngShow', toggle);
+                // 模型同步UI显示、隐藏事件
+                if (attrs.ngIf) scope.$watch('ngIf', change);
+                if (attrs.ngShow) scope.$watch('ngShow', change);
                 if (attrs.ngHide) scope.$watch('ngHide', function(value) {
-                    toggle(!value);
+                    change(!value);
                 });
 
+                // UI 的显示与隐藏、删除事件
+                function change(show) {
 
-                function toggle(show) {
+                    var anchor = getAnchor(attrs['for']);
 
-                    if (typeof show === 'undefined') {
+                    if (angular.isUndefined(show)) {
                         return;
+                    }
+
+                    if (angular.isObject(show)) {
+                        // HTMLElement, Event
+                        anchor = show;
                     }
 
                     if (show) {
@@ -127,20 +109,28 @@ ngModule.popup = function(name, options) {
                         elem.css('visibility', 'hidden');
                         setTimeout(function() {
                             elem.css('visibility', 'visible');
-                            popup.show(popup.anchor);
-                            scope.$onopen();
+                            popup[attrToBoolean(attrs.modal) ? 'showModal' : 'show'](anchor);
+                            controller.onopen();
                             if (attrs.duration) {
-                                clearTimeout(timer);
-                                timer = setTimeout(scope.$close, Number(attrs.duration));
+                                controller.setDuration(Number(attrs.duration));
                             }
                         }, 0);
                     } else {
                         popup.close();
-                        scope.$onclose();
+                        controller.onclose();
                     }
 
                 }
 
+
+                function getAnchor(id) {
+                    return document.getElementById(id);
+                }
+
+
+                function attrToBoolean(value) {
+                    return typeof value === 'string';
+                }
 
 
                 // ESC 快捷键关闭浮层
@@ -159,7 +149,7 @@ ngModule.popup = function(name, options) {
                     }
 
                     if (keyCode === 27) {
-                        scope.$close();
+                        controller.close(event);
                     }
                 }
 
@@ -174,7 +164,7 @@ ngModule.popup = function(name, options) {
                 // 控制器销毁或者 ng-if="false" 都可能触发此
                 // scope.$on('$destroy', callback) >> 这种方式对 ngAnimate 支持不好
                 elem.one('$destroy', function() {
-                    toggle(false);
+                    change(false);
                     popup.remove();
                     temp.remove();
                     $(document).off('keydown', esc);

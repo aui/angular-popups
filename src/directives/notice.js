@@ -6,10 +6,9 @@ require('../css/ui-notice.css');
 
 var directives = require('./directives');
 
-directives.popup('notice', {
+directives.createPopup('notice', {
     template: '<div class="ui-popup">' +
-        '<div class="ui-notice">' +
-        '<div ng-transclude class="ui-notice-content"></div>' +
+        '<div class="ui-notice" ng-transclude>' +
         '</div>' +
         '</div>'
 });
