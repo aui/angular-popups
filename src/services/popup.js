@@ -75,7 +75,7 @@ ngModule.provider('Popup', function() {
 
     this.$get = ['$compile', '$rootScope', function ($compile, $rootScope) {
 
-        function dialog(options) {
+        function createPopup(options) {
 
             if (!compiled) {
                 var baseDialog = createElement(baseDialogTpl);
@@ -103,20 +103,20 @@ ngModule.provider('Popup', function() {
 
         return {
             alert: function(content, ok) {
-                return dialog({
+                return createPopup({
                     content: content,
                     ok: ok || noop
                 });
             },
             confirm: function(content, ok, cancel) {
-                return dialog({
+                return createPopup({
                     content: content,
                     ok: ok || noop,
                     cancel: cancel || noop
                 });
             },
             notice: function(content, duration, ok) {
-                return dialog({
+                return createPopup({
                     content: content,
                     duration: duration || 2000,
                     ok: ok || noop
