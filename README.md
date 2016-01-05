@@ -65,7 +65,7 @@ var app = angular.module('app', ['angular-popups']);
 | modal        | 模态浮层                                   |
 | duration     | 自动关闭的时间（单位毫秒）                     |
 | close        | 浮层关闭事件                                |
-| close-action | 配置浮层由什么动作来触发关闭（执行 `close` 事件）。默认 `"esc timeout"` ，所有支持的动作： `"esc timeout focusout outerchick click"` |
+| close-action | 配置浮层由什么动作来触发关闭（执行 `close` 事件）。默认 `"esc timeout"` ，所有支持的动作： `"esc timeout outerchick click"` |
 
 > `ng-if`、`ng-show` 如果传入的是 `$event`，则浮层会定位到事件触发位置
 
