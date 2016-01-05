@@ -13,22 +13,8 @@ directives.createPopup('bubble', {
         '</div>' +
         '</div>',
     link: function(scope, elem, attrs, controller) {
-
-        function click(event) {
-            if (!elem[0].contains(event.target)) {
-                controller.close(event);
-            }
+        if (!attrs.closeAction) {
+            controller.closeAction = ['esc', 'timeout', 'outerchick', 'focusout'];
         }
-
-        controller.onopen = function () {
-            document.addEventListener('click', click, false);
-            elem[0].addEventListener('focusout', controller.close, false);
-        };
-
-        controller.onclose = function () {
-            document.removeEventListener('click', click);
-            elem[0].removeEventListener('focusout', controller.close);
-        };
-
     }
 });
