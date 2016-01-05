@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="examples">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>example</title>
+
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../dist/angular-popups.js"></script>
+
+    <script>
+    angular.module('examples', ['angular-popups']);
+    </script>
+
+    <link rel="stylesheet" href="./css/show-source-code.css">
+</head>
+<body>
+<button id="btn" ng-click="dialog={open: true}">打开对话框</button>
+<dialog ng-if="dialog.open" for="btn" close="dialog.open=false" close-action="esc outerchick">
+    <div dialog-title>消息</div>
+    <div dialog-content>hello world</div>
+</dialog>
+
+<script id="show-source-code" src="./js/show-source-code.js"></script>
+</body>
+</html>

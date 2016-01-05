@@ -8,10 +8,6 @@
     <script src="../node_modules/angular/angular.min.js"></script>
     <script src="../dist/angular-popups.js"></script>
 
-    <script>
-    angular.module('examples', ['angular-popups']);
-    </script>
-
     <style>
         .example {
             height: 80px;
@@ -58,19 +54,18 @@
     点击右键
 </div>
 
-<popup ng-if="popup.open" close="popup.open=false" outerclick="$close()">
+<popup ng-if="popup.open" close="popup.open=false" close-action="esc outerchick click">
     <ul class="ui-contextmenu" ng-click="$close()">
-        <li><a href="javascript:;">我是右键菜单选项</a></li>
-        <li><a href="javascript:;">Menu2</a></li>
+        <li><a href="#1">我是右键菜单选项</a></li>
+        <li><a href="#2">Menu2</a></li>
     </ul>
 </popup>
 
 <script>
-var angularPopups = angular.module('angular-popups');
+var app = angular.module('examples', ['angular-popups']);
 
-// 创建右键菜单事件指令
 // 给 AngularJS 添加 ng-contextmenu 指令
-angularPopups.directive('ngContextmenu', ['$parse', function($parse) {
+app.directive('ngContextmenu', ['$parse', function($parse) {
     return {
         restrict: 'A',
         compile: function($element, attr) {
@@ -85,39 +80,6 @@ angularPopups.directive('ngContextmenu', ['$parse', function($parse) {
                     scope.$apply(callback);
                     event.preventDefault()
                 });
-            };
-        }
-    };
-}]);
-
-// 创建外部点击事件指令
-angularPopups.directive('outerclick', ['$parse', function($parse) {
-    return {
-        restrict: 'A',
-        require: '^popup',
-        compile: function($element, attr) {
-            var fn = $parse(attr.outerclick, null, true);
-            return function(scope, element, attrs, controller) {
-                var $document = angular.element(document);
-
-                function click(event) {
-                    if (!element[0].contains(event.target)) {
-                        var callback = function() {
-                            event.target = element[0];
-                            fn(scope, {
-                                $event: event
-                            });
-                        };
-                        scope.$apply(callback);
-                    }
-                }
-
-                $document.on('click', click);
-                element.one('$destroy', function() {
-                    $document.off('click', click);
-                });
-
-                scope.$close = controller.close;
             };
         }
     };
