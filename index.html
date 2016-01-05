@@ -31,7 +31,7 @@
 <li>可以指定元素或鼠标事件对象（<code>$event</code>）对齐</li>
 <li>支持模态浮层</li>
 <li>对移动端支持友好</li>
-<li>轻量（7kb），不依赖 jQuery 等外部库</li>
+<li>轻量（css+js=7kb），不依赖 jQuery 等外部库</li>
 </ol>
 
 <p>演示站点：<a href="https://aui.github.io/angular-popups/">https://aui.github.io/angular-popups/</a></p>
@@ -109,12 +109,13 @@
 </tr>
 <tr>
 <td>align</td>
-<td>对齐的参数，此参数需要与 <code>for</code> 配合使用。可选值：<code>"top left"</code> <code>"top"</code> <code>"top right"</code> <code>"right top"</code> <code>"right"</code> <code>"right bottom"</code> <code>"bottom right"</code> <code>"bottom"</code> <code>"bottom left"</code> <code>"left bottom"</code> <code>"left"</code> <code>"left top"</code>
+<td>对齐的参数，此参数需要与 <code>for</code> 配合使用。默认 <code>"bottom left"</code>，可选值：<code>"top left"</code> <code>"top"</code> <code>"top right"</code> <code>"right top"</code> <code>"right"</code> <code>"right bottom"</code> <code>"bottom right"</code> <code>"bottom"</code> <code>"bottom left"</code> <code>"left bottom"</code> <code>"left"</code> <code>"left top"</code>
 </td>
 </tr>
 <tr>
 <td>fixed</td>
-<td>使用固定定位，等同于 CSS fixed</td>
+<td>使用固定定位，等同于 CSS <code>position:fixed</code>
+</td>
 </tr>
 <tr>
 <td>modal</td>
@@ -127,6 +128,11 @@
 <tr>
 <td>close</td>
 <td>浮层关闭事件</td>
+</tr>
+<tr>
+<td>close-action</td>
+<td>配置浮层由什么动作来触发关闭（执行 <code>close</code> 事件）。默认 <code>"esc timeout"</code> ，所有支持的动作： <code>"esc timeout outerchick click"</code>
+</td>
 </tr>
 </tbody>
 </table>
@@ -193,7 +199,8 @@
 <li><a href="https://aui.github.io/angular-popups/example/dialog-close.html">无关闭按钮的对话框</a></li>
 <li><a href="https://aui.github.io/angular-popups/example/dialog-for-align.html">带箭头的对话框</a></li>
 <li><a href="https://aui.github.io/angular-popups/example/dialog-fixed.html">fixed 定位的对话框</a></li>
-<li><a href="https://aui.github.io/angular-popups/example/dialog-duration.html">自动关闭的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-duration.html">定时关闭的对话框</a></li>
+<li><a href="https://aui.github.io/angular-popups/example/dialog-close-action">外部点击可关闭的对话框</a></li>
 </ol>
 
 <h2>
