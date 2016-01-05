@@ -50,7 +50,8 @@
     -webkit-tap-highlight-color:rgba(255,255,255,0);
 }
 .ui-dialog-close:hover,
-.ui-dialog-close:focus {
+.ui-dialog-close:focus,
+.ui-dialog-close:active {
     color: #000;
     text-decoration: none;
     cursor: pointer;
