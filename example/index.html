@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app="examples">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>example</title>
+
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../dist/angular-popups.js"></script>
+
+    <script>
+    angular.module('examples', ['angular-popups']);
+    </script>
+
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            height: 300%;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <button ng-click="dialog={open: true}">普通对话框</button>
+    <dialog ng-if="dialog.open" close="dialog.open=false">
+        <div dialog-title>消息</div>
+        <div dialog-content>hello world</div>
+    </dialog>
+
+    <button ng-click="dialog2={open: true}">模态对话框</button>
+    <dialog ng-if="dialog2.open" modal close="dialog2.open=false">
+        <div dialog-title>消息</div>
+        <div dialog-content>hello world</div>
+    </dialog>
+
+    <button id="btn-dialog-3" ng-click="dialog3={open: true}">箭头对话框</button>
+    <dialog ng-if="dialog3.open" for="btn-dialog-3" close="dialog3.open=false" close-action="esc timeout outerchick">
+        <div dialog-title>消息</div>
+        <div dialog-content>hello world</div>
+    </dialog>
+
+    <button ng-click="dialog4={open: true}">无标题的对话框</button>
+    <dialog ng-if="dialog4.open" close="dialog4.open=false" close-action="esc timeout outerchick">
+        <div dialog-content>hello world</div>
+    </dialog>
+
+    <button ng-click="dialog5={open: true}">无关闭按钮的对话框</button>
+    <dialog ng-if="dialog5.open">
+        <div dialog-title>消息</div>
+        <div dialog-content>hello world<button ng-click="dialog5.open=false">关闭</button></div>
+    </dialog>
+
+    <button ng-click="dialog6={open: true}">有按钮区的对话框</button>
+    <dialog ng-if="dialog6.open" close="dialog6.open=false">
+        <div dialog-title>消息</div>
+        <div dialog-content>hello world</div>
+        <div dialog-buttons><button autofocus>确定</button><button ng-click="$close()">取消</button></div>
+    </dialog>
+
+    <button ng-click="dialog7={open: true}">fixed定位的对话框</button>
+    <dialog ng-if="dialog7.open" fixed close="dialog7.open=false">
+        <div dialog-title>消息</div>
+        <div dialog-content>下拉页面滚动条查看效果</div>
+    </dialog>
+
+    <button ng-click="dialog8={open: true}">有状态栏的对话框</button>
+    <dialog ng-if="dialog8.open" close="dialog8.open=false">
+        <div dialog-title>消息</div>
+        <div dialog-content>hello world</div>
+        <div dialog-buttons><button autofocus>确定</button><button ng-click="$close()">取消</button></div>
+        <div dialog-statusbar><label><input type="checkbox">下次不再显示</label></div>
+    </dialog>
+
+    <button ng-click="dialog9={open: true}">定时关闭的对话框</button>
+    <dialog ng-if="dialog9.open" duration="2000" close="dialog9.open=false">
+        <div dialog-title>消息</div>
+        <div dialog-content>hello world</div>
+    </dialog>
+</div>
+
+<div>
+    <button id="btn-bubble" ng-click="bubble.open = true">普通气泡</button>
+    <bubble ng-if="bubble.open" for="btn-bubble" close="bubble.open=false">hello world</bubble>
+
+    <button id="btn-bubble2" ng-click="bubble2.open = true">定时关闭的气泡</button>
+    <bubble ng-if="bubble2.open" duration="2000" for="btn-bubble2" close="bubble2.open=false">hello world</bubble>
+</div>
+
+<div>
+    <button ng-click="notice={open: true}">普通消息条</button>
+    <notice ng-if="notice.open" duration="2000" fixed close="notice.open=false">
+        hello world
+    </notice>
+
+    <button ng-click="notice2={open: true}">模态消息条</button>
+    <notice ng-if="notice2.open" modal duration="2000" fixed close="notice2.open=false">
+        hello world
+    </notice>
+</div>
+
+<div>
+    <style>.mod-popup-example {width: 100px;height: 100px;text-align: center;line-height: 100px; border-radius: 50%;background: rgba(0, 0, 0, .7); color: #FFF;}</style>
+
+    <button ng-click="popup={open: true}">普通自定义浮层</button>
+    <popup ng-if="popup.open" close="popup.open=false" close-action="esc timeout outerchick">
+        <div class="mod-popup-example">hello world</div>
+    </popup>
+
+    <button ng-click="popup2={open: true}">模态自定义浮层</button>
+    <popup ng-if="popup2.open" modal close="popup2.open=false" close-action="esc timeout outerchick">
+        <div class="mod-popup-example">hello world</div>
+    </popup>
+
+    <button id="btn-popup3" ng-click="popup3={open: true}">被固定到元素附近的自定义浮层</button>
+    <popup ng-if="popup3.open" for="btn-popup3" close="popup3.open=false" close-action="esc timeout outerchick">
+        <div class="mod-popup-example">hello world</div>
+    </popup>
+
+    <button ng-click="popup4={open: $event}">被固定到事件源附近的自定义浮层</button>
+    <popup ng-if="popup4.open" close="popup4.open=false" close-action="esc timeout outerchick">
+        <div class="mod-popup-example">hello world</div>
+    </popup>
+</div>
+
+</body>
+</html>

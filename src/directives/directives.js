@@ -6,7 +6,7 @@ var angular = require('angular');
 var $ = angular.element;
 var Popup = require('../lib/popup');
 var ngModule = require('../ng-module');
-var noop = function(){};
+var noop = function() {};
 
 
 ngModule.createPopup = function(name, options) {
@@ -25,6 +25,9 @@ ngModule.createPopup = function(name, options) {
 
                 'close': '&',
 
+                // 关闭对话框的动作
+                'closeAction': '@',
+
                 // 吸附到指定 ID 元素
                 'for': '@',
 
@@ -42,16 +45,8 @@ ngModule.createPopup = function(name, options) {
 
             },
             controller: ['$scope', function($scope) {
-                var timer;
-                var that = this;
-                var close = $scope.close;
-
-                this.id = $scope.$id;
-
-                $scope.close = function() {
-                    clearTimeout(timer);
-                    close();
-                };
+                // 默认的触发关闭动作
+                this.closeAction = ['esc', 'timeout'];
 
                 this.close = function(isUiEvent) {
                     $scope.close();
@@ -59,16 +54,6 @@ ngModule.createPopup = function(name, options) {
                         $scope.$apply();
                     }
                 };
-
-                this.setDuration = function(duration) {
-                    clearTimeout(timer);
-                    timer = setTimeout(function() {
-                        that.close(true);
-                    }, duration);
-                };
-
-                this.onopen = this.onclose = function() {};
-
             }],
             link: function(scope, elem, attrs, controller) {
 
@@ -82,6 +67,12 @@ ngModule.createPopup = function(name, options) {
                 });
 
                 var temp = fix(elem);
+                var $document = $(document);
+
+                if (attrs.closeAction) {
+                    controller.closeAction = attrs.closeAction.split(/\s+/);
+                }
+
 
                 // 模型同步UI显示、隐藏事件
                 if (attrs.ngIf) scope.$watch('ngIf', change);
@@ -90,34 +81,42 @@ ngModule.createPopup = function(name, options) {
                     change(!value);
                 });
 
+
+                // ng 销毁事件控制对话框关闭
+                // 控制器销毁或者 ng-if="false" 都可能触发此
+                // scope.$on('$destroy', callback) >> 这种方式对 ngAnimate 支持不好
+                elem.one('$destroy', function() {
+                    change(false);
+                    popup.remove();
+                    temp.remove();
+                });
+
+
                 // UI 的显示与隐藏、删除事件
-                function change(show) {
+                function change(open) {
 
                     var anchor = getAnchor(attrs['for']);
 
-                    if (angular.isUndefined(show)) {
+                    if (angular.isUndefined(open)) {
                         return;
                     }
 
-                    if (angular.isObject(show)) {
+                    if (angular.isObject(open)) {
                         // HTMLElement, Event
-                        anchor = show;
+                        anchor = open;
                     }
 
-                    if (show) {
+                    if (open) {
                         // 使用 setTimeout 等待 ng-show 在 UI 上生效
                         elem.css('visibility', 'hidden');
                         setTimeout(function() {
                             elem.css('visibility', 'visible');
                             popup[attrToBoolean(attrs.modal) ? 'showModal' : 'show'](anchor);
-                            controller.onopen();
-                            if (attrs.duration) {
-                                controller.setDuration(Number(attrs.duration));
-                            }
+                            setEvent(open);
                         }, 0);
                     } else {
                         popup.close();
-                        controller.onclose();
+                        setEvent(open);
                     }
 
                 }
@@ -154,21 +153,66 @@ ngModule.createPopup = function(name, options) {
                 }
 
 
-                $(document).on('keydown', esc);
+                // 外部点击关闭
+                function outerclick(event) {
+                    if (!elem[0].contains(event.target)) {
+                        controller.close(event);
+                    }
+                }
+
+
+                // 定时关闭
+                function timeout() {
+                    if (attrs.duration) {
+                        timeout.timer = setTimeout(function() {
+                            controller.close(true);
+                        }, Number(attrs.duration));
+                    }
+                }
+
+
+                function setEvent(open) {
+                    controller.closeAction.forEach(function(action) {
+                        switch (action) {
+                            case 'esc':
+                                if (open) {
+                                    $document.on('keydown', esc);
+                                } else {
+                                    $document.off('keydown', esc);
+                                }
+                                break;
+                            case 'timeout':
+                                if (open) {
+                                    timeout();
+                                } else {
+                                    clearTimeout(timeout.timer);
+                                }
+                                break;
+                            case 'outerchick':
+                                if (open) {
+                                    $document
+                                        .on('ontouchend', outerclick)
+                                        .on('click', outerclick);
+                                } else {
+                                    $document
+                                        .off('ontouchend', outerclick)
+                                        .off('click', outerclick);
+                                }
+                                break;
+                            case 'click':
+                            //case 'focusout': // Error: [$rootScope:inprog]
+                                if (open) {
+                                    elem.on(action, controller.close);
+                                } else {
+                                    elem.off(action, controller.close);
+                                }
+                                break;
+                        }
+                    });
+                }
 
 
                 (options.link || function() {}).apply(this, arguments);
-
-
-                // ng 销毁事件控制对话框关闭
-                // 控制器销毁或者 ng-if="false" 都可能触发此
-                // scope.$on('$destroy', callback) >> 这种方式对 ngAnimate 支持不好
-                elem.one('$destroy', function() {
-                    change(false);
-                    popup.remove();
-                    temp.remove();
-                    $(document).off('keydown', esc);
-                });
 
             }
         };
