@@ -8,7 +8,7 @@
 4. 可以指定元素或鼠标事件对象（`$event`）对齐
 5. 支持模态浮层
 6. 对移动端支持友好
-6. 轻量（7kb），不依赖 jQuery 等外部库
+6. 轻量（css+js=7kb），不依赖 jQuery 等外部库
 
 演示站点：<https://aui.github.io/angular-popups/>
 
@@ -54,17 +54,18 @@ var app = angular.module('app', ['angular-popups']);
 
 ### 浮层通用参数
 
-| 名称          | 说明                                    |
-| ----------- | ---------------------------------------- |
-| ng-if       | 显示或隐藏浮层（DOM 插入或删除）              |
-| ng-show     | 显示浮层                                  |
-| ng-hide     | 隐藏浮层                                  |
-| for         | 指定元素对齐，传入目标元素 ID 即可            |
-| align       | 对齐的参数，此参数需要与 `for` 配合使用。可选值：`"top left"` `"top"` `"top right"` `"right top"` `"right"` `"right bottom"` `"bottom right"` `"bottom"` `"bottom left"` `"left bottom"` `"left"` `"left top"` |
-| fixed       | 使用固定定位，等同于 CSS fixed               |
-| modal       | 模态浮层                                   |
-| duration    | 自动关闭的时间（单位毫秒）                    |
-| close       | 浮层关闭事件                                |
+| 名称          | 说明                                     |
+| ------------ | ---------------------------------------- |
+| ng-if        | 显示或隐藏浮层（DOM 插入或删除）              |
+| ng-show      | 显示浮层                                  |
+| ng-hide      | 隐藏浮层                                  |
+| for          | 指定元素对齐，传入目标元素 ID 即可            |
+| align        | 对齐的参数，此参数需要与 `for` 配合使用。默认 `"bottom left"`，可选值：`"top left"` `"top"` `"top right"` `"right top"` `"right"` `"right bottom"` `"bottom right"` `"bottom"` `"bottom left"` `"left bottom"` `"left"` `"left top"` |
+| fixed        | 使用固定定位，等同于 CSS `position:fixed`    |
+| modal        | 模态浮层                                   |
+| duration     | 自动关闭的时间（单位毫秒）                     |
+| close        | 浮层关闭事件                                |
+| close-action | 配置浮层由什么动作来触发关闭（执行 `close` 事件）。默认 `"esc timeout"` ，所有支持的动作： `"esc timeout focusout outerchick click"` |
 
 > `ng-if`、`ng-show` 如果传入的是 `$event`，则浮层会定位到事件触发位置
 
@@ -102,7 +103,8 @@ var app = angular.module('app', ['angular-popups']);
 6. [无关闭按钮的对话框](https://aui.github.io/angular-popups/example/dialog-close.html)
 7. [带箭头的对话框](https://aui.github.io/angular-popups/example/dialog-for-align.html)
 8. [fixed 定位的对话框](https://aui.github.io/angular-popups/example/dialog-fixed.html)
-9. [自动关闭的对话框](https://aui.github.io/angular-popups/example/dialog-duration.html)
+9. [定时关闭的对话框](https://aui.github.io/angular-popups/example/dialog-duration.html)
+10. [外部点击可关闭的对话框](https://aui.github.io/angular-popups/example/dialog-close-action)
 
 ## bubble
 
