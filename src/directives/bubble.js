@@ -14,7 +14,7 @@ directives.createPopup('bubble', {
         '</div>',
     link: function(scope, elem, attrs, controller) {
         if (!attrs.closeAction) {
-            controller.closeAction = ['esc', 'timeout', 'outerchick', 'focusout'];
+            controller.closeAction = ['esc', 'timeout', 'outerchick'];
         }
     }
 });

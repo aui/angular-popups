@@ -37,13 +37,13 @@
     </dialog>
 
     <button id="btn-dialog-3" ng-click="dialog3={open: true}">箭头对话框</button>
-    <dialog ng-if="dialog3.open" for="btn-dialog-3" close="dialog3.open=false" close-action="esc timeout outerchick focusout">
+    <dialog ng-if="dialog3.open" for="btn-dialog-3" close="dialog3.open=false" close-action="esc timeout outerchick">
         <div dialog-title>消息</div>
         <div dialog-content>hello world</div>
     </dialog>
 
     <button ng-click="dialog4={open: true}">无标题的对话框</button>
-    <dialog ng-if="dialog4.open" close="dialog4.open=false">
+    <dialog ng-if="dialog4.open" close="dialog4.open=false" close-action="esc timeout outerchick">
         <div dialog-content>hello world</div>
     </dialog>
 
@@ -105,22 +105,22 @@
     <style>.mod-popup-example {width: 100px;height: 100px;text-align: center;line-height: 100px; border-radius: 50%;background: rgba(0, 0, 0, .7); color: #FFF;}</style>
 
     <button ng-click="popup={open: true}">普通自定义浮层</button>
-    <popup ng-if="popup.open" close="popup.open=false">
+    <popup ng-if="popup.open" close="popup.open=false" close-action="esc timeout outerchick">
         <div class="mod-popup-example">hello world</div>
     </popup>
 
     <button ng-click="popup2={open: true}">模态自定义浮层</button>
-    <popup ng-if="popup2.open" modal close="popup2.open=false">
+    <popup ng-if="popup2.open" modal close="popup2.open=false" close-action="esc timeout outerchick">
         <div class="mod-popup-example">hello world</div>
     </popup>
 
     <button id="btn-popup3" ng-click="popup3={open: true}">被固定到元素附近的自定义浮层</button>
-    <popup ng-if="popup3.open" for="btn-popup3" close="popup3.open=false">
+    <popup ng-if="popup3.open" for="btn-popup3" close="popup3.open=false" close-action="esc timeout outerchick">
         <div class="mod-popup-example">hello world</div>
     </popup>
 
     <button ng-click="popup4={open: $event}">被固定到事件源附近的自定义浮层</button>
-    <popup ng-if="popup4.open" close="popup4.open=false">
+    <popup ng-if="popup4.open" close="popup4.open=false" close-action="esc timeout outerchick">
         <div class="mod-popup-example">hello world</div>
     </popup>
 </div>

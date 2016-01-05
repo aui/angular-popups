@@ -25,7 +25,7 @@ ngModule.createPopup = function(name, options) {
 
                 'close': '&',
 
-                // 关闭对话框的动作（可选 "esc timeout outerchick focusout" ）
+                // 关闭对话框的动作
                 'closeAction': '@',
 
                 // 吸附到指定 ID 元素
@@ -200,7 +200,7 @@ ngModule.createPopup = function(name, options) {
                                 }
                                 break;
                             case 'click':
-                            case 'focusout':
+                            //case 'focusout': // Error: [$rootScope:inprog]
                                 if (open) {
                                     elem.on(action, controller.close);
                                 } else {
