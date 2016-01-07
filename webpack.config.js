@@ -13,7 +13,7 @@ module.exports = {
     devtool: 'source-map',
     plugins: [
         new ExtractTextPlugin('[name].css'),
-        new webpack.BannerPlugin('popups@' + version + ' | https://github.com/aui/angular-popups')
+        new webpack.BannerPlugin('angular-popups@' + version + ' | https://github.com/aui/angular-popups')
     ],
     externals: {
         angular: 'angular'

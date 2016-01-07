@@ -36,7 +36,8 @@
     float: right;
     top: 13px;
     right: 13px;
-    padding: 0 4px;
+    margin-top: -1px;
+    padding: 0;
     font-size: 21px;
     font-weight: bold;
     line-height: 1;

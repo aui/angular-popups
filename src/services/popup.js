@@ -26,6 +26,7 @@ ngModule.provider('Popup', function() {
         cancelValue: null,
         ok: null,
         cancel: null,
+        notice: false,
         $destroy: noop,
         $ok: function() {
             if (this.ok && this.ok() !== false) {
@@ -55,7 +56,7 @@ ngModule.provider('Popup', function() {
     };
 
     var baseDialogTpl =
-        '<dialog ng-if="$$Popup.open && !$$Popup.duration" modal fixed close="$$Popup.$close()">' +
+        '<dialog ng-if="$$Popup.open && !$$Popup.notice" modal fixed close="$$Popup.$close()">' +
         '<div dialog-title ng-bind="$$Popup.title"></div>' +
         '<div dialog-content ng-bind="$$Popup.content"></div>' +
         '<div dialog-buttons>' +
@@ -64,7 +65,7 @@ ngModule.provider('Popup', function() {
         '</dialog>';
 
     var noticeDialogTpl =
-        '<notice ng-if="$$Popup.open && $$Popup.duration" fixed duration="{{$$Popup.duration}}" close="$$Popup.$close()">' +
+        '<notice ng-if="$$Popup.open && $$Popup.notice" fixed duration="{{$$Popup.duration}}" close="$$Popup.$close()">' +
         '{{$$Popup.content}}' +
         '</notice>';
 
@@ -119,7 +120,8 @@ ngModule.provider('Popup', function() {
                 return createPopup({
                     content: content,
                     duration: duration || 2000,
-                    ok: ok || noop
+                    ok: ok || noop,
+                    notice: true
                 });
             }
         };
