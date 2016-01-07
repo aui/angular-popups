@@ -55,7 +55,7 @@
 </div>
 
 <popup ng-if="popup.open" close="popup.open=false" close-action="esc outerchick click">
-    <ul class="ui-contextmenu" ng-click="$close()">
+    <ul class="ui-contextmenu">
         <li><a href="#1">我是右键菜单选项</a></li>
         <li><a href="#2">Menu2</a></li>
     </ul>
@@ -78,7 +78,7 @@ app.directive('ngContextmenu', ['$parse', function($parse) {
                         });
                     };
                     scope.$apply(callback);
-                    event.preventDefault()
+                    event.preventDefault();
                 });
             };
         }
