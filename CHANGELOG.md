@@ -1,3 +1,11 @@
+## 0.0.1-beta9
+
+1. 修复在 safari 浏览器下使用 service 可能导致页面滚动的问题
+
+## 0.0.1-beta8
+
+1. 增加 `close-action` 配置
+
 ## 0.0.1-beta7
 
 1. 使用 `focusout` 事件优化关闭 `bubble` 操作，对键盘操作更友好
