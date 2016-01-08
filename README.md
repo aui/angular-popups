@@ -83,6 +83,7 @@ var app = angular.module('app', ['angular-popups']);
 | dialog-statusbar | 对话框状态栏容器 |
 
 > 对话框子指令中的事件可以使用 `$close()` 这个函数，它会调用通用参数 `close` 中的表达式
+> 如果想给对话框增加拖拽的特性，可以使用：<https://github.com/aui/angular-drag>
 
 ### 示例
 
