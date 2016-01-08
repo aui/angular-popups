@@ -1,7 +1,4 @@
 @import url('./ui-popup.css');
-html, body {
-    -webkit-tap-highlight-color:rgba(255,255,255,0);
-}
 .ui-bubble {
     position: relative;
     background: rgba(253, 248, 222, .9);

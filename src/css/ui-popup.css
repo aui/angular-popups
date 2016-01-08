@@ -7,7 +7,6 @@
 }
 .ui-popup-show {
     display: block;
-
 }
 .ui-popup-modal::before {
     content: '';
@@ -22,12 +21,10 @@
     transform: scale(3);
     -webkit-animation: ui-popup-opacity .15s 1 linear;
     animation: ui-popup-opacity .15s 1 linear;
-
 }
 .ui-popup-modal > * {
     position: relative;
 }
-
 @-webkit-keyframes ui-popup-opacity {
     0% {opacity: 0;}
     100% {opacity: .7;}
