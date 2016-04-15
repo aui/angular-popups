@@ -1,4 +1,4 @@
-/* global require,module */
+'use strict';
 require('./directives/popup');
 require('./directives/bubble');
 require('./directives/dialog');

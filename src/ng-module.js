@@ -1,1 +1,1 @@
-module.exports = require('angular').module('angular-popups', []);
+module.exports = require('angular').module('angular-popup', []);

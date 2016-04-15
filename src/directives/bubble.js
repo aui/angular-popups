@@ -2,8 +2,6 @@
 
 'use strict';
 
-require('../css/ui-bubble.css');
-
 var directives = require('./directives');
 
 directives.createPopup('bubble', {
