@@ -1,6 +1,6 @@
-# angular-popup
+# angular-popups
 
-基于 AngularJS 的浮层组件，由 [artDialog](https://github.com/aui/artDialog) 演进而来。angular-popup 是一个严格遵循 AngularJS 架构与 web 标准的组件：
+基于 AngularJS 的浮层组件，由 [artDialog](https://github.com/aui/artDialog) 演进而来。angular-popups 是一个严格遵循 AngularJS 架构与 web 标准的组件：
 
 1. 使用 AngularJS 自带的 `ng-if`、`ng-show`、`ng-hide` 控制浮层的显示、销毁
 2. 支持 ARIA 规范、无障碍焦点管理、快捷键关闭
@@ -10,7 +10,7 @@
 6. 对移动端支持友好
 6. 轻量（css+js=7kb），不依赖 jQuery 等外部库
 
-演示站点：<https://aui.github.io/angular-popup/>
+演示站点：<https://aui.github.io/angular-popups/>
 
 ## 使用
 
@@ -22,9 +22,9 @@
 
 ```html
 <script src="lib/angular.js"></script>
-<script src="dist/angular-popup.js"></script>
+<script src="dist/angular-popups.js"></script>
 <script>
-    var app = angular.module('app', ['angular-popup']);
+    var app = angular.module('app', ['angular-popups']);
 </script>
 ```
 
@@ -32,16 +32,16 @@
 
 安装
 ``` shell
-npm install angular-popup
+npm install angular-popups
 ```
 
 调用
 ```js
-require('angular-popup');
-var app = angular.module('app', ['angular-popup']);
+require('angular-popups');
+var app = angular.module('app', ['angular-popups']);
 ```
 
-> angular-popup 依赖 `angular` 这个全局模块
+> angular-popups 依赖 `angular` 这个全局模块
 
 ## 指令
 
@@ -95,16 +95,16 @@ var app = angular.module('app', ['angular-popup']);
 
 在线演示：
 
-1. [普通对话框](https://aui.github.io/angular-popup/example/dialog-ng-if.html)
-2. [模态对话框](https://aui.github.io/angular-popup/example/dialog-modal.html)
-3. [带按钮的对话框](https://aui.github.io/angular-popup/example/dialog-dialog-buttons.html)
-4. [带状态栏的对话框](https://aui.github.io/angular-popup/example/dialog-dialog-statusbar.html)
-5. [无标题的对话框](https://aui.github.io/angular-popup/example/dialog-dialog-title.html)
-6. [无关闭按钮的对话框](https://aui.github.io/angular-popup/example/dialog-close.html)
-7. [带箭头的对话框](https://aui.github.io/angular-popup/example/dialog-for-align.html)
-8. [fixed 定位的对话框](https://aui.github.io/angular-popup/example/dialog-fixed.html)
-9. [定时关闭的对话框](https://aui.github.io/angular-popup/example/dialog-duration.html)
-10. [外部点击可关闭的对话框](https://aui.github.io/angular-popup/example/dialog-close-action)
+1. [普通对话框](https://aui.github.io/angular-popups/example/dialog-ng-if.html)
+2. [模态对话框](https://aui.github.io/angular-popups/example/dialog-modal.html)
+3. [带按钮的对话框](https://aui.github.io/angular-popups/example/dialog-dialog-buttons.html)
+4. [带状态栏的对话框](https://aui.github.io/angular-popups/example/dialog-dialog-statusbar.html)
+5. [无标题的对话框](https://aui.github.io/angular-popups/example/dialog-dialog-title.html)
+6. [无关闭按钮的对话框](https://aui.github.io/angular-popups/example/dialog-close.html)
+7. [带箭头的对话框](https://aui.github.io/angular-popups/example/dialog-for-align.html)
+8. [fixed 定位的对话框](https://aui.github.io/angular-popups/example/dialog-fixed.html)
+9. [定时关闭的对话框](https://aui.github.io/angular-popups/example/dialog-duration.html)
+10. [外部点击可关闭的对话框](https://aui.github.io/angular-popups/example/dialog-close-action)
 
 ## bubble
 
@@ -121,9 +121,9 @@ var app = angular.module('app', ['angular-popup']);
 
 在线演示：
 
-1. [普通气泡](https://aui.github.io/angular-popup/example/bubble.html)
-2. [自定义气泡方向](https://aui.github.io/angular-popup/example/bubble-for-align.html)
-3. [不被关闭的气泡](https://aui.github.io/angular-popup/example/bubble-close.html)
+1. [普通气泡](https://aui.github.io/angular-popups/example/bubble.html)
+2. [自定义气泡方向](https://aui.github.io/angular-popups/example/bubble-for-align.html)
+3. [不被关闭的气泡](https://aui.github.io/angular-popups/example/bubble-close.html)
 
 ## notice
 
@@ -139,8 +139,8 @@ var app = angular.module('app', ['angular-popup']);
 
 在线演示：
 
-1. [普通通知浮层](https://aui.github.io/angular-popup/example/notice.html)
-2. [模态通知浮层](https://aui.github.io/angular-popup/example/notice-modal.html)
+1. [普通通知浮层](https://aui.github.io/angular-popups/example/notice.html)
+2. [模态通知浮层](https://aui.github.io/angular-popups/example/notice-modal.html)
 
 ## popup
 
@@ -158,8 +158,8 @@ var app = angular.module('app', ['angular-popup']);
 
 在线演示：
 
-1. [自定义浮层](https://aui.github.io/angular-popup/example/popup.html)
-2. [创建右键菜单](https://aui.github.io/angular-popup/example/popup-contextmenu.html)
+1. [自定义浮层](https://aui.github.io/angular-popups/example/popup.html)
+2. [创建右键菜单](https://aui.github.io/angular-popups/example/popup-contextmenu.html)
 
 ## 服务
 
@@ -197,7 +197,7 @@ app.controller('testCtrl', function($scope, Popup) {
 
 在线演示：
 
-1. [在控制器中使用 `Popup` 服务](https://aui.github.io/angular-popup/example/services.html)
+1. [在控制器中使用 `Popup` 服务](https://aui.github.io/angular-popups/example/services.html)
 
 ## 兼容性
 
@@ -215,6 +215,6 @@ app.controller('testCtrl', function($scope, Popup) {
 
 -----------------
 
-![支付宝二维码](http://aui.github.io/angular-popup/qr-alipay.png)
+![支付宝二维码](http://aui.github.io/angular-popups/qr-alipay.png)
 
 喜欢这个项目？捐助一杯咖啡支持下（￥28）

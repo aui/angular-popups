@@ -6,7 +6,7 @@
     <title>example</title>
 
     <script src="../node_modules/angular/angular.min.js"></script>
-    <script src="../dist/angular-popup.js"></script>
+    <script src="../dist/angular-popups.js"></script>
 
     <style>
         .example {
@@ -62,7 +62,7 @@
 </popup>
 
 <script>
-var app = angular.module('examples', ['angular-popup']);
+var app = angular.module('examples', ['angular-popups']);
 
 // 给 AngularJS 添加 ng-contextmenu 指令
 app.directive('ngContextmenu', ['$parse', function($parse) {

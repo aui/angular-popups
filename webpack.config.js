@@ -5,8 +5,8 @@ var version = packageJson.version;
 
 module.exports = {
     entry: {
-        'angular-popup': './src/popups.js',
-        'angular-popup-nocss': './src/popups-nocss.js'
+        'angular-popups': './src/popups.js',
+        'angular-popups-nocss': './src/popups-nocss.js'
     },
     output: {
         path: 'dist',
