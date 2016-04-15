@@ -2,8 +2,6 @@
 
 'use strict';
 
-require('../css/ui-notice.css');
-
 var directives = require('./directives');
 
 directives.createPopup('notice', {

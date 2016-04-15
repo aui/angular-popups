@@ -2,7 +2,6 @@
 
 'use strict';
 
-require('../css/ui-dialog.css');
 var angular = require('angular');
 var $ = angular.element;
 var directives = require('./directives');

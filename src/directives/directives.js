@@ -228,7 +228,7 @@ ngModule.createPopup = function(name, options) {
 
 // AngularJS(v1.4.8) BUG：
 // 如果指令内部把 DOM 节点迁移到 document.body 下，
-// 则指令元素的 ng-if 为 false 的时候可能导致其他 popups 节点被 AngularJS 删除
+// 则指令元素的 ng-if 为 false 的时候可能导致其他 popup 节点被 AngularJS 删除
 function fix(elem) {
     var temp = document.createElement('popup');
     document.body.appendChild(temp);

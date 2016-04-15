@@ -16,7 +16,6 @@ html, body {
 .ui-popup-focus .ui-bubble {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
-
 .ui-bubble-content {
     padding: 5px;
 }

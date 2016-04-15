@@ -1,6 +1,6 @@
 {
   "name": "angular-popups",
-  "version": "0.0.1-beta9",
+  "version": "0.0.2",
   "readmeFilename": "README.md",
   "description": "基于 AngularJS 的浮层组件",
   "homepage": "https://github.com/aui/angular-popups",
@@ -9,6 +9,7 @@
     "dialog",
     "popup",
     "bubble",
+    "notice",
     "artDialog"
   ],
   "author": "aui",
@@ -16,9 +17,10 @@
     "type": "git",
     "url": "https://github.com/aui/angular-popups.git"
   },
-  "main": "./dist/angular-popups.js",
+  "main": "dist/angular-popups.js",
   "scripts": {
-    "min": "webpack -p"
+    "min": "webpack -p",
+    "test": "open test/index.html"
   },
   "devDependencies": {
     "angular": "^1.4.8",
@@ -27,7 +29,7 @@
     "jshint": "^2.8.0",
     "jshint-loader": "^0.8.3",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.15"
   },
   "license": "MIT"
 }

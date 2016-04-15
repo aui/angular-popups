@@ -1,3 +1,7 @@
+## 0.0.1
+
+1. 提供无 CSS 依赖的版本 
+
 ## 0.0.1-beta9
 
 1. 修复在 safari 浏览器下使用 service 可能导致页面滚动的问题
@@ -33,7 +37,7 @@
 
 ## 0.0.1-beta2
 
-1. 模块名由 `popups` 改成 `angular-popups`
+1. 模块名由 `popups` 改成 `angular-popupss`
 2. 修复按按 ESC 关闭浮层，浮层没有恢复焦点的问题
 3. 修复 `align` 无效的问题
 4. 优化 `bubble` 指令样式
