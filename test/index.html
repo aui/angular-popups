@@ -5,72 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>test</title>
-    <!-- <link rel="stylesheet" href="../dist/angular-popups.css"> -->
+    <!-- <link rel="stylesheet" href="../dist/angular-popup.css"> -->
     <script src="../node_modules/angular/angular.min.js"></script>
-    <script src="../dist/angular-popups.js"></script>
+    <script src="../dist/angular-popup.js"></script>
 
     <script>
-    angular.module('test', ['angular-popups']);
+    var app = angular.module('test', ['angular-popup']);
+    app.controller('testCtrl', function ($scope) {
+        $scope.message = 'hello world';
+        $scope.title = '提示';
+        $scope.okValue = '确定';
+        $scope.cancelValue = '取消';
+    });
+
     </script>
 </head>
-<body>
+<body ng-controller="testCtrl">
 
 
 
 <button ng-click="dialog={open: true}">dialog</button>
 <dialog ng-if="dialog.open" close="dialog.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello world</div>
+    <div dialog-title>{{title}}</div>
+    <div dialog-content>{{message}}</div>
 </dialog>
 
 <button ng-click="dialog2={open: true}">dialog:有按钮</button>
 <dialog ng-if="dialog2.open" close="dialog2.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello world</div>
+    <div dialog-title>{{title}}</div>
+    <div dialog-content>{{message}}</div>
     <div dialog-buttons>
-        <button autofocus>确定</button>
-        <button ng-click="$close()">取消</button>
+        <button autofocus ng-click="dialog2.open = false">{{okValue}}</button>
+        <button ng-click="$close()">{{cancelValue}}</button>
     </div>
 </dialog>
 
 <button ng-click="dialog3={open: true}">dialog:有状态栏</button>
 <dialog ng-if="dialog3.open" close="dialog3.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello world</div>
+    <div dialog-title>{{title}}</div>
+    <div dialog-content>{{message}}</div>
     <div dialog-statusbar><label><input type="checkbox">下次不再显示</label></div>
     <div dialog-buttons>
-        <button autofocus>确定</button>
-        <button ng-click="$close()">取消</button>
+        <button autofocus ng-click="dialog3.open = false">{{okValue}}</button>
+        <button ng-click="$close()">{{cancelValue}}</button>
     </div>
 </dialog>
 
 <button ng-click="dialog4={open: true}">dialog:模态</button>
 <dialog ng-if="dialog4.open" modal close="dialog4.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello world</div>
+    <div dialog-title>{{title}}</div>
+    <div dialog-content>{{message}}</div>
 </dialog>
 
 <button ng-click="dialog5={open: true}">dialog:无标题栏</button>
 <dialog ng-if="dialog5.open" close="dialog5.open=false">
-    <div dialog-content>hello world</div>
+    <div dialog-content>{{message}}</div>
 </dialog>
 
 <button id="dialog7-btn" ng-click="dialog7={open: true}">dialog:可吸附</button>
 <dialog ng-if="dialog7.open" for="dialog7-btn" close="dialog7.open=false">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello world</div>
+    <div dialog-title>{{title}}</div>
+    <div dialog-content>{{message}}</div>
 </dialog>
 
 <button ng-click="dialog8={open: true}">dialog:定时关闭</button>
 <dialog ng-if="dialog8.open" close="dialog8.open=false" duration="2000">
-    <div dialog-title>提示</div>
-    <div dialog-content>hello world</div>
+    <div dialog-title>{{title}}</div>
+    <div dialog-content>{{message}}</div>
 </dialog>
 
 <!-- more -->
 
 <button id="test" ng-click="x={open:true}" style="position: absolute;left:200px;top:50px">bubble:show</button>
-<bubble ng-show="x.open" for="test" close="x.open=false">hello world</bubble>
+<bubble ng-show="x.open" for="test" close="x.open=false">{{message}}</bubble>
 
 
 <button ng-click="popup={open:true}" style="position: absolute;left:500px;top:50px">show popup</button>
